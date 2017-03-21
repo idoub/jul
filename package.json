@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://gitlab.com/jumpnjellyfish/jul/issues"
   },
-  "homepage": "https://gitlab.com/jumpnjellyfish/jul#README"
+  "homepage": "https://gitlab.com/jumpnjellyfish/jul#README",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }
