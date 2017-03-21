@@ -4,7 +4,8 @@
   "description": "Javascript Utility Library",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "install": "gulp"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
   },
   "homepage": "https://gitlab.com/jumpnjellyfish/jul#README",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-concat": "*",
+    "gulp-minify": "*"
   }
 }
