@@ -1,0 +1,2 @@
+# Installation
+This repository only contains the source code for the library, no distribution files. If you want to use the library, simply clone and run `npm install`. Concatenated and minified files will be placed in a new **dist** folder.
