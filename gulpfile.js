@@ -1,4 +1,7 @@
 var gulp = require('gulp');
+var concat = require('gulp-concat');
+var rename = require('gulp-rename');
+var minify = require('gulp-minify');
 var fs = require('fs');
 
 var package = JSON.parse(fs.readFileSync('./package.json'));
@@ -6,11 +9,11 @@ var package = JSON.parse(fs.readFileSync('./package.json'));
 var name = `jul_${package.version}`;
 var dest = 'dist';
 
-gulp.task('build',function(){
+gulp.task('default',function(){
     gulp.src(['core/**/*.js','modules/**/*.js'])
         .pipe(concat(`${name}.js`))
-        .pip(gulp.dest(dest))
+        .pipe(gulp.dest(dest))
         .pipe(rename(`${name}.min.js`))
         .pipe(minify())
-        .pip(gulp.dest(dest));
+        .pipe(gulp.dest(dest));
 });
