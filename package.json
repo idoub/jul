@@ -1,0 +1,25 @@
+{
+  "name": "jul",
+  "version": "0.0.1",
+  "description": "Javascript Utility Library",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/jumpnjellyfish/jul.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "utility",
+    "library"
+  ],
+  "author": "Isaac Doub https://gitlab.com/jumpnjellyfish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/jumpnjellyfish/jul/issues"
+  },
+  "homepage": "https://gitlab.com/jumpnjellyfish/jul#README"
+}
