@@ -26,6 +26,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "*",
-    "gulp-minify": "*"
+    "gulp-minify": "*",
+    "gulp-jsdoc3": "*"
   }
 }
