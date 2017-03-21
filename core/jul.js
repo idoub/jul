@@ -4,7 +4,7 @@
  * wrapping the selected objects as well as defining an 'addModule' function
  * which can be used to extend the base _ object in a safe way.
  * 
- * @namespace _
+ * @ namespace _
  */
 var _ = (function(d){
     'use strict';
@@ -27,7 +27,7 @@ var _ = (function(d){
      * to get an arraylike object of all matching elements when a selector is
      * passed to it.</p>
      * 
-     * @memberof _
+     * @ memberof _
      * @param    o - The object to be wrapped or a selector to identify the
      * elements to be wrapped.
      * @return {_} - A new underscore object.
@@ -45,7 +45,7 @@ var _ = (function(d){
      * in a safe way, defining other dependencies for your module as well as
      * namespacing if you need.</i></strong>
      * 
-     * @memberof _
+     * @ memberof _
      * @param {string}   name     - The name of the module you are adding.
      * @param {function} fn       - An IIFE to define your module.
      * @param {string[]}    required - An array of modules that are required for

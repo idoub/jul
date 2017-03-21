@@ -4,8 +4,6 @@ _.addModule('add',function() {
      * existing underscore object and a new one constructed from the passed
      * parameter.</i></strong>
      * 
-     * @memberof _
-     * @alias _().add
      * @param {object|string} obj - The object you want wrapped and concatenated
      * or a string representing a css selector.
      */

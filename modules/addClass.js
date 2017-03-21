@@ -2,8 +2,6 @@ _.addModule('addClass',function() {
     /**
      * <strong><i>Adds a class or classes to wrapped elements</i></strong>
      * 
-     * @memberof _
-     * @alias _().addClass
      * @param {string|string[]} cls - A class or array of classes that you want
      * to add to the wrapped elements.
      */

@@ -2,8 +2,6 @@ _.addModule('extend',function(){
     /**
      * <strong><i>A deep extend method.</i></strong>
      * 
-     * @memberof _
-     * @alias _.extend
      * @param  {object}    out - The function that you want to extend.
      * @param  {...object} o   - Any objects you want to grab properties from
      * and add to the extended object.
@@ -26,8 +24,6 @@ _.addModule('extend',function(){
     /**
      * <strong><i>Deep extend an already wrapped object.</i></strong>
      * 
-     * @memberof _
-     * @alias _().extend
      * @param  {...*} o - Any objects you want to grab properties from and add
      * to the currently wrapped object.
      * @return {object} - The wrapped object that has been extended with

@@ -3,8 +3,6 @@ _.addModule('each',function(){
      * <strong><i>Loop through every member wrapped by an underscore object and
      * run a function on each.</i></strong>
      * 
-     * @memberof _
-     * @alias _().each
      * @param  {function} cb - The callback you want run on each member.
      * @param  {...*} params - Any params you want passed to the callback.
      * @return {_}           - The underscore object that the method was called
@@ -28,8 +26,6 @@ _.addModule('each',function(){
      * <strong><i>Loop through every member of an array passed as an object and
      * run a function on each element.</i></strong>
      * 
-     * @memberof _
-     * @alias _.each
      * @param  {array}   arr - The array whose elements you want to execute the
      * function on.
      * @param  {function} cb - The callback you want run on each member.
