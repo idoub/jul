@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var minify = require('gulp-minify');
 var jsdoc = require('gulp-jsdoc3');
+var mocha = require('gulp-mocha');
+var wait = require('gulp-wait');
 
 var docConf = require('./jsdoc.json');
 
@@ -31,13 +33,19 @@ gulp.task('dist',function(){
         .pipe(gulp.dest(dest));
 });
 
-gulp.task('doc',function(){
+gulp.task('doc',['dist'],function(){
     gulp.src(['core/**/*.js','modules/**/*.js'], {read: false})
         .pipe(jsdoc(docConf));
 });
 
-gulp.task('watch',function(){
-    gulp.watch('./**/*.js',['dist','doc']);
+gulp.task('test',['dist'],function(){
+    gulp.src('test/**/*.js', {read: false})
+        .pipe(wait(1500))
+        .pipe(mocha());
 });
 
-gulp.task('default',['dist','doc']);
+gulp.task('watch',function(){
+    gulp.watch('./**/*.js',['dist','doc','test']);
+});
+
+gulp.task('default',['dist','doc','test']);

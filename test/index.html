@@ -1,0 +1,19 @@
+<!DOCTYPE hmtl>
+<html>
+    <head>
+        <title>Test</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://rawgit.com/mochajs/mocha/master/mocha.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="mocha"></div>
+        <script src="https://rawgit.com/mochajs/mocha/master/mocha.js"></script>
+        <script src="https://rawgit.com/chaijs/chai/master/chai.js"></script>
+        <script>mocha.setup('bdd')</script>
+        <script src="../dist/jul0.0.1.js"></script>
+        <script src="setup.js"></script>
+        <script src="test-core.js"></script>
+        <script>mocha.run()</script>
+    </body>
+</html>

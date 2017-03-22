@@ -4,9 +4,14 @@
  * wrapping the selected objects as well as defining an 'addModule' function
  * which can be used to extend the base _ object in a safe way.
  */
+/**
+ * Universal Module Definition. Works with node.js or in the browser. This is so
+ * that we can run mocha tests against this library.
+ */
 var _ = (function(d){
     'use strict';
-    var self = {}, modules = []; self.e = [];  _.fn = _.prototype;
+    var self = {}, modules = [];
+    self.e = [];
 
     /**
      * <strong><i>The underscore selector and constructor.</i></strong>
@@ -29,13 +34,14 @@ var _ = (function(d){
      * elements to be wrapped.
      * @return {_} - A new underscore object.
      */
-    function _(o) {
+    var _ = function(o) {
         o = o || [];
         if(o instanceof _) return o;
         self = Object.create(_.fn);
         self.e = (typeof o === 'string') ? Array.from(d.querySelectorAll(o)) : (Array.isArray(o)) ? o : [o];
         return self;
-    }
+    };
+    _.fn = _.prototype;
 
     /**
      * <strong><i>This function allows you to extend the core underscore object
