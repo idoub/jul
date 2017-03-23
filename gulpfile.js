@@ -23,7 +23,8 @@ var modules = [
     'modules/map.js',
     'modules/filter.js',
     'modules/ajax.js',
-    'modules/addClass.js'
+    'modules/addClass.js',
+    'modules/hash.js'
 ];
 
 gulp.task('dist',function(){
