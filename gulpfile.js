@@ -16,6 +16,7 @@ var dest = 'dist';
 
 var modules = [
     'src/jul.js',
+    'src/addModule.js',
     'src/pubsub.js',
     'src/ready.js',
     'src/exists.js',
