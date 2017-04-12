@@ -4,10 +4,6 @@
  * wrapping the selected objects as well as defining an 'addModule' function
  * which can be used to extend the base _ object in a safe way.
  */
-/**
- * Universal Module Definition. Works with node.js or in the browser. This is so
- * that we can run mocha tests against this library.
- */
 var _ = (function(d){
     'use strict';
     var self = {}, modules = [];
