@@ -15,17 +15,17 @@ var name = `jul${package.version}`;
 var dest = 'dist';
 
 var modules = [
-    'core/jul.js',
-    'modules/pubsub.js',
-    'modules/ready.js',
-    'modules/exists.js',
-    'modules/extend.js',
-    'modules/each.js',
-    'modules/map.js',
-    'modules/filter.js',
-    'modules/ajax.js',
-    'modules/addClass.js',
-    'modules/hash.js'
+    'src/jul.js',
+    'src/pubsub.js',
+    'src/ready.js',
+    'src/exists.js',
+    'src/extend.js',
+    'src/each.js',
+    'src/map.js',
+    'src/filter.js',
+    'src/ajax.js',
+    'src/addClass.js',
+    'src/hash.js'
 ];
 
 gulp.task('dist',function(){
@@ -36,7 +36,7 @@ gulp.task('dist',function(){
 });
 
 gulp.task('doc',['dist'],function(){
-    gulp.src(['core/**/*.js','modules/**/*.js'], {read: false})
+    gulp.src(['src/**/*.js'], {read: false})
         .pipe(jsdoc(docConf));
 });
 
