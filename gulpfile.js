@@ -5,6 +5,7 @@ var minify = require('gulp-minify');
 var jsdoc = require('gulp-jsdoc3');
 var mocha = require('gulp-mocha');
 var wait = require('gulp-wait');
+var sizereport = require('gulp-sizereport');
 
 var docConf = require('./jsdoc.json');
 
@@ -14,9 +15,10 @@ var package = JSON.parse(fs.readFileSync('./package.json'));
 var name = `jul${package.version}`;
 
 gulp.task('dist',function(){
-    gulp.src(['src/jul.js','src/**/*.js'])
+    gulp.src(['src/jul.js','src/addModule.js','src/**/*.js'])
         .pipe(concat(`${name}.js`))
         .pipe(minify())
+        .pipe(sizereport({gzip:true,'*':{'maxMinifiedGzippedSize':5000}}))
         .pipe(gulp.dest('dist'));
 });
 

@@ -30,6 +30,7 @@
     "gulp-jsdoc3": "^1.0.1",
     "gulp-mocha": "^4.1.0",
     "gulp-wait": "^0.0.2",
+    "gulp-sizereport": "^1.2.0",
     "jsdom": "^9.12.0",
     "mocha-jsdom": "^1.1.0",
     "chai": "^3.5.0"
