@@ -12,28 +12,12 @@ var fs = require('fs');
 var package = JSON.parse(fs.readFileSync('./package.json'));
 
 var name = `jul${package.version}`;
-var dest = 'dist';
-
-var modules = [
-    'src/jul.js',
-    'src/addModule.js',
-    'src/pubsub.js',
-    'src/ready.js',
-    'src/exists.js',
-    'src/extend.js',
-    'src/each.js',
-    'src/map.js',
-    'src/filter.js',
-    'src/ajax.js',
-    'src/addClass.js',
-    'src/hash.js'
-];
 
 gulp.task('dist',function(){
-    gulp.src(modules)
+    gulp.src(['src/jul.js','src/**/*.js'])
         .pipe(concat(`${name}.js`))
         .pipe(minify())
-        .pipe(gulp.dest(dest));
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('doc',['dist'],function(){
