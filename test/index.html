@@ -6,17 +6,17 @@
         <link href="https://rawgit.com/mochajs/mocha/master/mocha.css" rel="stylesheet" />
     </head>
     <body>
+        <div id="div1" class="div1class red" data-attr1="attribute 1" data-attr2="Another Attribute"></div>
+        <div id="div2" class="div2class red"></div>
+
         <div id="mocha"></div>
         <script src="https://rawgit.com/mochajs/mocha/master/mocha.js"></script>
         <script src="https://rawgit.com/chaijs/chai/master/chai.js"></script>
         <script>mocha.setup('bdd')</script>
-        <script src="../dist/jul0.0.1-min.js"></script>
+        <script src="../dist/jul0.0.1.js"></script>
         <script src="test.core.js"></script>
         <script src="test.attrs.js"></script>
         <script src="test.create.js"></script>
-        <script>
-            mocha.checkLeaks();
-            mocha.run()
-        </script>
+        <script>mocha.run()</script>
     </body>
 </html>

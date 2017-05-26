@@ -4,8 +4,7 @@ const concat = require('gulp-concat');
 const minify = require('gulp-minify');
 const jsdoc = require('gulp-jsdoc3');
 const sizereport = require('gulp-sizereport');
-const mocha = require('gulp-mocha');
-const chai = require('chai');
+const phantom = require('gulp-mocha-phantomJS');
 
 const docConf = require('./jsdoc.json');
 
@@ -47,8 +46,8 @@ gulp.task('doc', ['dist'], function () {
 });
 
 gulp.task('test', ['dist'], function () {
-  gulp.src('./test/**/test.*.js', { read: false })
-    .pipe(mocha({ reporter: 'dot',globals: ['chai'], require: ['chai'] }));
+  gulp.src('./test/index.html', { read: false })
+    .pipe(phantom({reporter: 'dot'}));
 });
 
 gulp.task('watch', function () {

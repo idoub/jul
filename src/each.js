@@ -15,7 +15,7 @@ _.addModule('each',function(){
      *  },'shown','#444444');
      */
     this.prototype.each = function(cb,params) {
-        var args = Array.from(arguments); args.shift();
+        var args = [].slice.call(arguments); args.shift();
         for(var key in Object.keys(this.e)) {
             cb.apply(this,[this.e[key],key,this.e].concat(args));
         }
