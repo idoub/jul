@@ -107,7 +107,19 @@ _.addModule('create', function () {
     return elem;
   };
 
-  var create = function (str, isSVG) {
+  /**
+   * <strong><i>This function will create HTML for you using
+   * {@link https://emmet.io/|Emmet} syntax</i></strong>
+   * 
+   * @param {object|string} obj - The representation of the html you want to 
+   * create.
+   * @param {boolean}     isSVG - A boolean determining whether you want to
+   * create an SVG heierarchy instead of a standard HTML heierarchy.
+   * 
+   * @return {element}          - An element of node type 'wrapper' that
+   * contains your created elements.
+   */
+  this.create = function (str, isSVG) {
     var parent = document.createElement('wrapper');
     var elem = null,
       nextIndex, head, i;
@@ -251,18 +263,4 @@ _.addModule('create', function () {
     }
     return parent;
   };
-
-  /**
-   * <strong><i>This function will create HTML for you using
-   * {@link https://emmet.io/|Emmet} syntax</i></strong>
-   * 
-   * @param {object|string} obj - The representation of the html you want to 
-   * create.
-   * @param {boolean}     isSVG - A boolean determining whether you want to
-   * create an SVG heierarchy instead of a standard HTML heierarchy.
-   * 
-   * @return {element}          - An element of node type 'wrapper' that
-   * contains your created elements.
-   */
-  this.create = create;
 });

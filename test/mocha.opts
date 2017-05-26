@@ -1,0 +1,3 @@
+app
+-r ./test/setup.js
+-r ./dist/jul0.0.1.js
