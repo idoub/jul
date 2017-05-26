@@ -5,7 +5,6 @@
  * which can be used to extend the base _ object in a safe way.
  */
 var _ = (function(d){
-    'use strict';
     var self = {}, modules = [];
     self.e = [];
 
@@ -33,10 +32,9 @@ var _ = (function(d){
     var _ = function(o) {
         o = o || [];
         if(o instanceof _) return o;
-        self = Object.create(_.fn);
+        self = Object.create(_.prototype);
         self.e = (typeof o === 'string') ? Array.from(d.querySelectorAll(o)) : (Array.isArray(o)) ? o : [o];
         return self;
     };
-    _.fn = _.prototype;
     return _;
 }.call(this,document));

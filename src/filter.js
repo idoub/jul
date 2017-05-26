@@ -4,7 +4,7 @@ _.addModule('filter',function(){
      * underscore object and return an array that matches the filter callback.
      * </i></strong>
      * 
-     * @param  {function} cb - The filter function. If the function returns true
+     * @param  {function} fn - The filter function. If the function returns true
      * , then the value of the current arraylike object will be added to the new
      * array.
      * @param  {...*} params - Any params you want passed to the filter function
