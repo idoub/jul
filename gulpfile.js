@@ -33,7 +33,7 @@ const modules = [
 ];
 
 gulp.task(`dist`, function () {
-  gulp.src(modules)
+  return gulp.src(modules)
     .pipe(concat(`${name}.js`))
     .pipe(minify())
     .pipe(sizereport({ gzip: true, '*': { 'maxMinifiedGzippedSize': 5000 } }))
@@ -41,12 +41,12 @@ gulp.task(`dist`, function () {
 });
 
 gulp.task(`doc`, [`dist`], function () {
-  gulp.src([`dist/${name}.js`], { read: false })
+  return gulp.src([`dist/${name}.js`], { read: false })
     .pipe(jsdoc(docConf));
 });
 
 gulp.task(`test`, [`dist`], function () {
-  gulp.src(`./test/index.html`, { read: false })
+  return gulp.src(`./test/index.html`, { read: false })
     .pipe(phantom({reporter: `dot`}));
 });
 
