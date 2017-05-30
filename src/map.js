@@ -1,4 +1,5 @@
-_.addModule('map',function(){
+(function () {
+  _.addModule('map', function () {
     /**
      * <strong><i>Loop through every member of an arraylike object wrapped by an
      * underscore object and map them to a different array.</i></strong>
@@ -18,12 +19,14 @@ _.addModule('map',function(){
      *      'my '
      *  );
      */
-    this.prototype.map = function(cb,params) {
-        var args = Array.from(arguments); args.shift();
-        var results = [];
-        for(var key in Object.keys(this.e)) {
-            results.push(cb.apply(this,[this.e[key],key,this.e].concat(args)));
-        }
-        return results;
+    this.prototype.map = function (cb, params) {
+      var args = Array.from(arguments);
+      args.shift();
+      var results = [];
+      for (var key in Object.keys(this.e)) {
+        results.push(cb.apply(this, [this.e[key], key, this.e].concat(args)));
+      }
+      return results;
     };
-});
+  });
+})(_ || {});

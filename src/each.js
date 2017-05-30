@@ -1,4 +1,5 @@
-_.addModule('each',function(){
+(function () {
+  _.addModule('each', function () {
     /**
      * <strong><i>Loop through every member wrapped by an underscore object and
      * run a function on each.</i></strong>
@@ -14,12 +15,13 @@ _.addModule('each',function(){
      *      element.style.color = color;
      *  },'shown','#444444');
      */
-    this.prototype.each = function(cb,params) {
-        var args = [].slice.call(arguments); args.shift();
-        for(var key in Object.keys(this.e)) {
-            cb.apply(this,[this.e[key],key,this.e].concat(args));
-        }
-        return this;
+    this.prototype.each = function (cb, params) {
+      var args = [].slice.call(arguments);
+      args.shift();
+      for (var key in Object.keys(this.e)) {
+        cb.apply(this, [this.e[key], key, this.e].concat(args));
+      }
+      return this;
     };
 
     /**
@@ -37,7 +39,8 @@ _.addModule('each',function(){
      *      array[i] = Math.pow(num,exponent);
      *  },3);
      */
-    this.each = function(arr,cb,params) {
-        return _(arr).each(cb,params).e;
+    this.each = function (arr, cb, params) {
+      return _(arr).each(cb, params).e;
     };
-});
+  });
+})(_ || {});

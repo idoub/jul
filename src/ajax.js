@@ -1,13 +1,14 @@
-_.addModule('ajax',function(){
+(function () {
+  _.addModule('ajax', function () {
     var defaultOpts = {
-        method:'GET',
-        url:'https://jsonplaceholder.typicode.com/posts/1',
-        headers:{'Accept':'application/json','Content-Type':'application/json'},
-        async:true,
-        user:'',
-        password:''
+      method: 'GET',
+      url: 'https://jsonplaceholder.typicode.com/posts/1',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      async: true,
+      user: '',
+      password: ''
     };
-    
+
     /**
      * <strong><i>A simple but flexible ajax call</i></strong>
      * 
@@ -29,18 +30,20 @@ _.addModule('ajax',function(){
      * @property {object}   opts.data                      - The data you want to send for call. E.g. 'PUT' and 'POST' calls.
      * @property {object.<string,string>} opts.headers     - An object defining the headers as key-value pairs of strings.
      */
-    this.ajax = function(opts){
-        opts = _.extend({},defaultOpts,opts);
-        var req = new XMLHttpRequest(),keys,k;
-        req.open(opts.method,opts.url,opts.async,opts.user,opts.password);
-        if(_.exists(opts,'handlers')) {
-            keys = Object.keys(opts.handlers);
-            for(k in keys) req['on'+keys[k]] = opts.handlers[keys[k]];
-        }
-        keys = Object.keys(opts.headers);
-        for(k in keys) {
-            req.setRequestHeader(keys[k],opts.headers[keys[k]]);
-        }
-        req.send(opts.data);
+    this.ajax = function (opts) {
+      opts = _.extend({}, defaultOpts, opts);
+      var req = new XMLHttpRequest(),
+        keys, k;
+      req.open(opts.method, opts.url, opts.async, opts.user, opts.password);
+      if (_.exists(opts, 'handlers')) {
+        keys = Object.keys(opts.handlers);
+        for (k in keys) req['on' + keys[k]] = opts.handlers[keys[k]];
+      }
+      keys = Object.keys(opts.headers);
+      for (k in keys) {
+        req.setRequestHeader(keys[k], opts.headers[keys[k]]);
+      }
+      req.send(opts.data);
     };
-},['extend','exists']);
+  }, ['extend', 'exists']);
+})(_ || {});

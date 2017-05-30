@@ -1,4 +1,5 @@
-_.addModule('pubsub',function(){
+(function () {
+  _.addModule('pubsub', function () {
     var topics = {};
 
     /**
@@ -11,11 +12,11 @@ _.addModule('pubsub',function(){
      * @param {object} data  - Any data you want passed to listeners of the
      * topic.
      */
-    this.publish = function(topic,data) {
-        if(!topics.hasOwnProperty(topic)) return;
-        for(var i=0; i<topics[topic].length; i++) {
-            topics[topic][i](data !== undefined ? data : {});
-        }
+    this.publish = function (topic, data) {
+      if (!topics.hasOwnProperty(topic)) return;
+      for (var i = 0; i < topics[topic].length; i++) {
+        topics[topic][i](data !== undefined ? data : {});
+      }
     };
 
     /**
@@ -30,11 +31,12 @@ _.addModule('pubsub',function(){
      * @return {{unsubscribe: function}} - The subscriber. Use this to
      * unsubscribe a listener from a topic using subscriber.unsubscribe.
      */
-    this.subscribe = function(topic,listener) {
-        if(!topics.hasOwnProperty(topic)) topics[topic] = [];
-        var index = topics[topic].push(listener) -1;
-        return {
-            unsubscribe: function() {delete topics[topic][index];}
-        };
+    this.subscribe = function (topic, listener) {
+      if (!topics.hasOwnProperty(topic)) topics[topic] = [];
+      var index = topics[topic].push(listener) - 1;
+      return {
+        unsubscribe: function () { delete topics[topic][index]; }
+      };
     };
-});
+  });
+})(_ || {});

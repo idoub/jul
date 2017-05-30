@@ -1,4 +1,5 @@
-_.addModule('filter',function(){
+(function () {
+  _.addModule('filter', function () {
     /**
      * <strong><i>Loop through every member of an arraylike object wrapped by an
      * underscore object and return an array that matches the filter callback.
@@ -20,13 +21,15 @@ _.addModule('filter',function(){
      *      'j'
      *  )
      */
-    this.prototype.filter = function(fn,params){
-        var args = Array.from(arguments); args.shift();
-        var out = [];
-        for(var i = this.e.length; i--;) {
-            if(fn.apply(this,[this.e[i],i,this.e].concat(args)) === true)
-                out.unshift(this.e[i]);
-        }
-        return out;
+    this.prototype.filter = function (fn, params) {
+      var args = Array.from(arguments);
+      args.shift();
+      var out = [];
+      for (var i = this.e.length; i--;) {
+        if (fn.apply(this, [this.e[i], i, this.e].concat(args)) === true)
+          out.unshift(this.e[i]);
+      }
+      return out;
     };
-});
+  });
+})(_ || {});

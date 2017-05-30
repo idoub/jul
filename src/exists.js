@@ -1,4 +1,5 @@
-_.addModule('exists',function(){
+(function () {
+  _.addModule('exists', function () {
     /**
      * <strong><i>Checks whether a property exists on an object and is not
      * undefined</i></strong>
@@ -10,7 +11,8 @@ _.addModule('exists',function(){
      * @return {boolean}    - Whether the property exists on the object and is
      * not undefined.
      */
-    this.exists = function(obj,prop) {
-        return obj.hasOwnProperty(prop) && typeof(obj[prop]) !== 'undefined';
+    this.exists = function (obj, prop) {
+      return obj.hasOwnProperty(prop) && typeof (obj[prop]) !== 'undefined';
     };
-});
+  });
+})(_ || {});
