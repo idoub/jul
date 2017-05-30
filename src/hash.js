@@ -2,7 +2,10 @@
   'use strict';
   _.addModule('hash', function () {
     /**
-     * JS Implementation of MurmurHash3 (r136) (as of May 20, 2011)
+     * JS Implementation of MurmurHash3
+     * 
+     * @memberof _
+     * @alias _.hash
      * 
      * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
      * @see http://github.com/garycourt/murmurhash-js

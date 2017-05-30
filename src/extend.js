@@ -2,11 +2,13 @@
   'use strict';
   _.addModule('extend', function () {
     /**
-     * <strong><i>A deep extend method.</i></strong>
+     * A deep extend method.
+     * 
+     * @memberof _
+     * @alias _.extend
      * 
      * @param  {object}    out - The function that you want to extend.
-     * @param  {...object} o   - Any objects you want to grab properties from
-     * and add to the extended object.
+     * @param  {...object} o   - Any objects you want to grab properties from and add to the extended object.
      * @return {object}        - The first parameter with added properties.
      */
     this.extend = function (out, o) {
@@ -24,12 +26,13 @@
     };
 
     /**
-     * <strong><i>Deep extend an already wrapped object.</i></strong>
+     * Deep extend an already wrapped object.
      * 
-     * @param  {...*} o - Any objects you want to grab properties from and add
-     * to the currently wrapped object.
-     * @return {object} - The wrapped object that has been extended with
-     * additional parameters.
+     * @memberof _
+     * @alias _(o).extend
+     * 
+     * @param  {...*} o - Any objects you want to grab properties from and add to the currently wrapped object.
+     * @return {object} - The wrapped object that has been extended with additional parameters.
      */
     this.prototype.extend = function (o) {
       var args = Array.from(arguments);

@@ -2,13 +2,13 @@
   'use strict';
   _.addModule('attrs', function () {
     /**
-     * <strong><i></i></strong>
+     * Provides an object representing the attributes of the wrapped elements.
      * 
-     * @param {string|string[]} [name] - An optional parameter defining the
-     * attribute (or attributes) you wish to get.
+     * @memberof _
+     * @alias _(o).attrs
      * 
-     * @return {object}                - An object mapping attribute names to
-     * their values.
+     * @param {string|string[]} [name] - An optional parameter defining the attribute (or attributes) you wish to get.
+     * @return {object}                - An object mapping attribute names to their values.
      */
     this.prototype.attrs = function (name) {
       name = name instanceof Array ? name : typeof name === 'string' ? [name] : undefined;

@@ -30,6 +30,7 @@
     "gulp-jsdoc3": "^1.0.1",
     "gulp-minify": "^0.0.15",
     "gulp-sizereport": "^1.2.0",
-    "gulp-mocha-phantomjs": "^0.12.1"
+    "gulp-mocha-phantomjs": "^0.12.1",
+    "minami": "^1.2.3"
   }
 }

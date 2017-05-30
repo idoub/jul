@@ -11,21 +11,20 @@
   self.e = [];
 
   /**
-   * <strong><i>The underscore selector and constructor.</i></strong>
+   * ***The underscore selector and constructor.***
    * 
-   * <p>Calling underscore as a function internally creates a new object with
-   * the underscore object as it's prototype. It also creates a property '_.e'
-   * which is a reference to either:</p>
-   * <ol>
-   * <li>a list of elements located by the selector passed in as a parameter,
-   * </li>
-   * <li>the object passed in as a parameter if it is an array,</li>
-   * <li>the object wrapped in an array if it is anything else.</li>
-   * </ol>
-   * <p>Internally, this function uses [document.querySelectorAll]{@link
-   * https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll}
+   * Calling underscore as a function internally creates a new object with
+   * the underscore object as it's prototype. It also creates a property `_.e`
+   * which is a reference to either:
+   * * a list of elements located by the selector passed in as a parameter,
+   * * the object passed in as a parameter if it is an array,</li>
+   * * the object wrapped in an array if it is anything else.</li>
+   *
+   * Internally, this function uses [document.querySelectorAll]{@link https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll}
    * to get an arraylike object of all matching elements when a selector is
-   * passed to it.</p>
+   * passed to it.
+   * 
+   * @namespace _
    * 
    * @param    o - The object to be wrapped or a selector to identify the
    * elements to be wrapped.

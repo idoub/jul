@@ -2,13 +2,14 @@
   'use strict';
   _.addModule('each', function () {
     /**
-     * <strong><i>Loop through every member wrapped by an underscore object and
-     * run a function on each.</i></strong>
+     * Loop through every member wrapped by an underscore object and run a function on each.
+     * 
+     * @memberof _
+     * @alias _(o).each
      * 
      * @param  {function} cb - The callback you want run on each member.
      * @param  {...*} params - Any params you want passed to the callback.
-     * @return {_}           - The underscore object that the method was called
-     * on.
+     * @return {_}           - The underscore object that the method was called on.
      * 
      * @example
      *  _('.hidden').each(function(element,index,array,newClass,color){
@@ -26,11 +27,12 @@
     };
 
     /**
-     * <strong><i>Loop through every member of an array passed as an object and
-     * run a function on each element.</i></strong>
+     * Loop through every member of an array passed as an object and run a function on each element.
      * 
-     * @param  {array}   arr - The array whose elements you want to execute the
-     * function on.
+     * @memberof _
+     * @alias _.each
+     * 
+     * @param  {array}   arr - The array whose elements you want to execute the function on.
      * @param  {function} cb - The callback you want run on each member.
      * @param  {...*} params - Any params you want passed to the callback.
      * @return {array}       - The original array that was passed in.

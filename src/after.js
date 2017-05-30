@@ -2,11 +2,13 @@
   'use strict';
   _.addModule('after', function () {
     /**
-     * <strong><i>Insert content after the currently wrapped elements.
-     * </i></strong>
+     * Insert content after the currently wrapped elements
      * 
-     * @param {node|string} content - The content you want inserted after each
-     * of the currently wrapped elements.
+     * @memberof _
+     * @alias _(o).after
+     * 
+     * @param {node|string} content - The content you want inserted after each of the currently wrapped elements.
+     * @return {_}                  - The underscore object that the method was called on.
      */
     this.prototype.after = function (content) {
       if (content instanceof Node) content = content.outerHTML;

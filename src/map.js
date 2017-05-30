@@ -2,15 +2,14 @@
   'use strict';
   _.addModule('map', function () {
     /**
-     * <strong><i>Loop through every member of an arraylike object wrapped by an
-     * underscore object and map them to a different array.</i></strong>
+     * Loop through every member of an arraylike object wrapped by an underscore object and map them to a different array.
      * 
-     * @param  {function} cb - The mapping function. The value returned from the
-     * function will be in the new array.
-     * @param  {...*} params - Any params you want passed to the mapping
-     * function.
-     * @return {array}       - The new array with values mapped from the current
-     * wrapped arraylike object.
+     * @memberof _
+     * @alias _(o).map
+     * 
+     * @param  {function} cb - The mapping function. The value returned from the function will be in the new array.
+     * @param  {...*} params - Any params you want passed to the mapping function.
+     * @return {array}       - The new array with values mapped from the current wrapped arraylike object.
      * 
      * @example
      *  _(['jul','jade','ruby','jasper','diamond','turquoise']).map(

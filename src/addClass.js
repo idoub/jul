@@ -2,10 +2,12 @@
   'use strict';
   _.addModule('addClass', function () {
     /**
-     * <strong><i>Adds a class or classes to wrapped elements</i></strong>
+     * Adds a class or classes to wrapped elements
      * 
-     * @param {string|string[]} cls - A class or array of classes that you want
-     * to add to the wrapped elements.
+     * @memberof _
+     * @alias _(o).addClass
+     * 
+     * @param {string|string[]} cls - A class or array of classes that you want to add to the wrapped elements.
      */
     this.prototype.addClass = function (cls) {
       if (!Array.isArray(cls)) cls = [cls];
