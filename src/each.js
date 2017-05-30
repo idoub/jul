@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('each', function () {
     /**
      * <strong><i>Loop through every member wrapped by an underscore object and

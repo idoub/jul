@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('attrs', function () {
     /**
      * <strong><i></i></strong>

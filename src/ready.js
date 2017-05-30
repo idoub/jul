@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('ready', function () {
     /**
      * <strong><i>This is a simple method to test whether the document is ready

@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('after', function () {
     /**
      * <strong><i>Insert content after the currently wrapped elements.

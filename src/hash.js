@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('hash', function () {
     /**
      * JS Implementation of MurmurHash3 (r136) (as of May 20, 2011)

@@ -1,4 +1,5 @@
 (function (_) {
+  'use strict';
   _.addModule('add', function () {
     /**
      * <strong><i>Get a new underscore object from the concatenation of an

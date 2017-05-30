@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('pubsub', function () {
     var topics = {};
 

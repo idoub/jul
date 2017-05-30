@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('addClass', function () {
     /**
      * <strong><i>Adds a class or classes to wrapped elements</i></strong>

@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('exists', function () {
     /**
      * <strong><i>Checks whether a property exists on an object and is not

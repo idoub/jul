@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('append', function () {
     /**
      * <strong><i>Append the provided content to the end of each of the

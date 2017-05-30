@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('ajax', function () {
     var defaultOpts = {
       method: 'GET',

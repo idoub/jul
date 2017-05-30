@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('filter', function () {
     /**
      * <strong><i>Loop through every member of an arraylike object wrapped by an

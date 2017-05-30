@@ -1,9 +1,10 @@
 (function () {
+  'use strict';
   _.addModule('create', function () {
-    separatorRegex = /[>\+\^\*\(\)#\.\{\}\[\]\s]/;
-    attributeRegex = /(\S*=".*?")|(\S*=\S*)|(\S+)/gi;
-    dollarRegex = /(\$+@?.*$)/g;
-    atModifierRegex = /@(.*)/;
+    var separatorRegex = /[>\+\^\*\(\)#\.\{\}\[\]\s]/;
+    var attributeRegex = /(\S*=".*?")|(\S*=\S*)|(\S+)/gi;
+    var dollarRegex = /(\$+@?.*$)/g;
+    var atModifierRegex = /@(.*)/;
 
     var pad = function (pad, str, padleft) {
       if (typeof str === 'undefined')

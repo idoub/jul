@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   _.addModule('extend', function () {
     /**
      * <strong><i>A deep extend method.</i></strong>
