@@ -16,7 +16,7 @@
         "protocol": "html://"
     },
     "opts": {
-        "destination": "docs",
+        "destination": "public",
         "template": "node_modules/minami"
     },
     "plugins": [

@@ -1,0 +1,13 @@
+pages:
+  stage: deploy
+  cache:
+    paths:
+    - node_modules/
+    - dist/
+  script:
+  - npm install
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
