@@ -4,10 +4,6 @@ cache:
   paths:
   - node_modules/
 
-before_script:
-  - npm install
-  - npm install -g gulp
-
 stages:
   - build
   - test
@@ -16,7 +12,7 @@ stages:
 build:
   stage: build
   script:
-    - gulp build
+    - npm install
   artifacts:
     paths:
       - dist
@@ -26,7 +22,7 @@ build:
 test:
   stage: test
   script:
-    - gulp test
+    - npm test
   artifacts:
     paths:
       - test
@@ -36,7 +32,7 @@ test:
 pages:
   stage: deploy
   script:
-    - gulp doc
+    - npm publish
   artifacts:
     paths:
       - public
