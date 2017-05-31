@@ -1,4 +1,4 @@
-image: node
+image: node:latest
 
 pages:
   stage: deploy
@@ -8,6 +8,7 @@ pages:
     - dist/
   script:
   - npm install
+  - gulp
   artifacts:
     paths:
     - public
