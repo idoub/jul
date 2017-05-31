@@ -24,7 +24,7 @@ gulp.task('test', ['build'], function () {
     .pipe(phantom({reporter: 'spec'}));
 });
 
-gulp.task('deploy', ['build', 'test'], function () {
+gulp.task('deploy', ['build'], function () {
   return gulp.src([`dist/${name}`,'README.md'], { read: false })
     .pipe(jsdoc(docConf));
 });
