@@ -6,12 +6,32 @@ cache:
 
 before_script:
   - npm install
-  - npm install -g gulp
 
-pages:
-  stage: deploy
+stages:
+  - build
+  - test
+  - document
+
+build:
+  stage: build
   script:
-  - gulp
+    - npm dist
   artifacts:
     paths:
-    - public
+      - dist
+
+test:
+  stage: test
+  script:
+    - npm test
+  artifacts:
+    paths:
+      - test
+
+pages:
+  stage: document
+  script:
+    - npm doc
+  artifacts:
+    paths:
+      - public

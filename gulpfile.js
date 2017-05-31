@@ -11,7 +11,7 @@ let modules = require('./modules.json');
 
 modules = ["src/jul.js","src/addModule.js"].concat(modules);
 
-gulp.task('dist', function () {
+gulp.task('build', function () {
   return gulp.src(modules)
     .pipe(concat(`jul${package.version}.js`))
     .pipe(minify())
@@ -19,18 +19,18 @@ gulp.task('dist', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('doc', ['dist'], function () {
-  return gulp.src([`dist/jul${package.version}.js`,'README.md'], { read: false })
-    .pipe(jsdoc(docConf));
-});
-
-gulp.task('test', ['dist'], function () {
+gulp.task('test', ['build'], function () {
   return gulp.src('./test/index.html', { read: false })
     .pipe(phantom({reporter: 'dot'}));
 });
 
-gulp.task('watch', function () {
-  gulp.watch('./**/*.js', ['dist', 'doc', 'test']);
+gulp.task('doc', ['build', 'test'], function () {
+  return gulp.src([`dist/jul${package.version}.js`,'README.md'], { read: false })
+    .pipe(jsdoc(docConf));
 });
 
-gulp.task('default', ['dist', 'doc', 'test']);
+gulp.task('watch', function () {
+  gulp.watch('./**/*.js', ['build', 'test', 'doc']);
+});
+
+gulp.task('default', ['build', 'test', 'doc']);
