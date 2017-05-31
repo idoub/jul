@@ -4,9 +4,9 @@
   "description": "Javascript Utility Library",
   "main": "gulpfile.js",
   "scripts": {
-    "install": "gulp build",
+    "build": "gulp build",
     "test": "gulp test",
-    "publish": "gulp doc"
+    "deploy": "gulp deploy"
   },
   "repository": {
     "type": "git",
