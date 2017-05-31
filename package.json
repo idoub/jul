@@ -23,7 +23,7 @@
     "url": "https://gitlab.com/jumpnjellyfish/jul/issues"
   },
   "homepage": "https://gitlab.com/jumpnjellyfish/jul#README",
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.9.1",
     "chai": "^3.5.0",
     "gulp-concat": "^2.6.1",
