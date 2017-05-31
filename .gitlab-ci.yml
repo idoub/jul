@@ -9,7 +9,6 @@ before_script:
   - npm install
 
 pages:
-  stage: document
   script:
     - gulp
   artifacts:
