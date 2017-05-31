@@ -5,8 +5,6 @@
   "main": "gulpfile.js",
   "scripts": {
     "install": "gulp",
-    "build": "gulp build",
-    "doc": "gulp doc",
     "test": "gulp test"
   },
   "repository": {
