@@ -1,6 +1,6 @@
 # JUL
 
-> A nifty little *J*avascript *U*tility *L*ibrary
+> A nifty little Javascript Utility Library
 
 ## Table of Contents
 - [Features](#features)
