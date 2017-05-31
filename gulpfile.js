@@ -41,7 +41,7 @@ gulp.task(`dist`, function () {
 });
 
 gulp.task(`doc`, [`dist`], function () {
-  return gulp.src([`dist/${name}.js`], { read: false })
+  return gulp.src([`dist/${name}.js`,`README.md`], { read: false })
     .pipe(jsdoc(docConf));
 });
 
