@@ -1,4 +1,6 @@
 # JUL
+[![build status](https://gitlab.com/jumpnjellyfish/jul/badges/master/build.svg)](https://gitlab.com/jumpnjellyfish/jul/commits/master)
+[![coverage report](https://gitlab.com/jumpnjellyfish/jul/badges/master/coverage.svg)](https://gitlab.com/jumpnjellyfish/jul/commits/master)
 
 > A nifty little Javascript Utility Library
 
