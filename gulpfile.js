@@ -30,7 +30,7 @@ gulp.task('deploy', ['build'], function () {
 });
 
 gulp.task('watch', function () {
-  return gulp.watch('./**/*.js', ['build', 'test', 'doc']);
+  return gulp.watch('./**/*.js', ['build', 'test', 'deploy']);
 });
 
-gulp.task('default', ['build', 'test', 'doc']);
+gulp.task('default', ['build', 'test', 'deploy']);
