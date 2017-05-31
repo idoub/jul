@@ -1,6 +1,4 @@
 [
-  "src/jul.js",
-  "src/addModule.js",
   "src/add.js",
   "src/create.js",
   "src/each.js",

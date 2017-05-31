@@ -7,7 +7,9 @@ const sizereport = require('gulp-sizereport');
 const phantom = require('gulp-mocha-phantomJS');
 const docConf = require('./jsdoc.json');
 const package = require('./package.json');
-const modules = require('./modules.json');
+let modules = require('./modules.json');
+
+modules = ["src/jul.js","src/addModule.js"].concat(modules);
 
 gulp.task('dist', function () {
   return gulp.src(modules)
