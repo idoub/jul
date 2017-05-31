@@ -1,5 +1,11 @@
 (function () {
   'use strict';
+  /**
+   * A super simple pub/sub module
+   * 
+   * @author David Walsh
+   * @see https://davidwalsh.name/pubsub-javascript
+   */
   _.addModule('pubsub', function () {
     var topics = {};
 

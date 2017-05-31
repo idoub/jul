@@ -8,6 +8,7 @@
      * @alias _(o).add
      * 
      * @param {object|string} obj - The object you want wrapped and concatenated or a string representing a css selector.
+     * @return {_}                - A new underscore object wrapping both the original object and the added object.
      */
     this.prototype.add = function (obj) {
       var newObj = _(obj);

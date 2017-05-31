@@ -3,6 +3,8 @@
  * It defines the selector function which can be used to create a new _ instance
  * wrapping the selected objects as well as defining an 'addModule' function
  * which can be used to extend the base _ object in a safe way.
+ * 
+ * @namespace _
  */
 (function (d) {
   'use strict';
@@ -24,7 +26,8 @@
    * to get an arraylike object of all matching elements when a selector is
    * passed to it.
    * 
-   * @namespace _
+   * @memberof _
+   * @alias _
    * 
    * @param    o - The object to be wrapped or a selector to identify the
    * elements to be wrapped.

@@ -8,6 +8,7 @@
      * @alias _(o).addClass
      * 
      * @param {string|string[]} cls - A class or array of classes that you want to add to the wrapped elements.
+     * @return {_}           - The underscore object that the method was called on.
      */
     this.prototype.addClass = function (cls) {
       if (!Array.isArray(cls)) cls = [cls];
@@ -18,6 +19,7 @@
         }
         el.className = classList.join(' ');
       });
+      return this;
     };
   }, ['each']);
 })(_ || {});

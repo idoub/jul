@@ -35,7 +35,7 @@
      * @param  {array}   arr - The array whose elements you want to execute the function on.
      * @param  {function} cb - The callback you want run on each member.
      * @param  {...*} params - Any params you want passed to the callback.
-     * @return {array}       - The original array that was passed in.
+     * @return {array}       - The original array, modified by the callback function.
      * 
      * @example
      *  _.each([2,4,8,16],function(num,i,array,exponent){

@@ -7,9 +7,9 @@
      * @memberof _
      * @alias _.hash
      * 
-     * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
+     * @author Gary Court <gary.court@gmail.com>
      * @see http://github.com/garycourt/murmurhash-js
-     * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
+     * @author Austin Appleby <aappleby@gmail.com>
      * @see http://sites.google.com/site/murmurhash/
      * 
      * @param {string} key ASCII only
@@ -49,8 +49,10 @@
       switch (remainder) {
       case 3:
         k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
+        break;
       case 2:
         k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
+        break;
       case 1:
         k1 ^= (key.charCodeAt(i) & 0xff);
 
