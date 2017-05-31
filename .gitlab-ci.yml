@@ -8,26 +8,10 @@ cache:
 before_script:
   - npm install
 
-build:
-  stage: build
-  script:
-    - gulp build
-  artifacts:
-    paths:
-      - dist
-
-test:
-  stage: test
-  script:
-    - gulp test
-  artifacts:
-    paths:
-      - test
-
 pages:
   stage: document
   script:
-    - gulp doc
+    - gulp
   artifacts:
     paths:
       - public
