@@ -30,7 +30,7 @@ gulp.task('doc', ['build', 'test'], function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch('./**/*.js', ['build', 'test', 'doc']);
+  return gulp.watch('./**/*.js', ['build', 'test', 'doc']);
 });
 
 gulp.task('default', ['build', 'test', 'doc']);

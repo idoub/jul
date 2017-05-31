@@ -3,14 +3,41 @@ image: node:latest
 cache:
   paths:
   - node_modules/
-  - dist/
 
 before_script:
   - npm install
 
-pages:
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
   script:
-    - gulp
+    - gulp build
+  artifacts:
+    paths:
+      - dist
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - gulp test
+  artifacts:
+    paths:
+      - test
+  only:
+    - master
+
+pages:
+  stage: deploy
+  script:
+    - gulp doc
   artifacts:
     paths:
       - public
+  only:
+    - master
