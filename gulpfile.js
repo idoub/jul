@@ -5,6 +5,7 @@ const minify = require('gulp-minify');
 const jsdoc = require('gulp-jsdoc3');
 const sizereport = require('gulp-sizereport');
 const phantom = require('gulp-mocha-phantomJS');
+const istanbul = require('gulp-istanbul-report');
 const docConf = require('./jsdoc.json');
 let modules = require('./modules.json');
 
@@ -21,7 +22,17 @@ gulp.task('build', function () {
 
 gulp.task('test', ['build'], function () {
   return gulp.src('./test/index.html', { read: false })
-    .pipe(phantom({reporter: 'spec'}));
+    .pipe(phantom({
+      reporter: 'spec',
+      phantomjs: {
+        hooks: 'mocha-phantomjs-istanbul',
+        coverageFile: './dist/coverage.json'
+      }
+    }))
+    .on('finish',function(){
+      gulp.src('./dist/coverage.json')
+        .pipe(istanbul());
+    });
 });
 
 gulp.task('deploy', ['build'], function () {

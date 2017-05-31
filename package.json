@@ -6,7 +6,7 @@
   "scripts": {
     "install": "gulp",
     "build": "gulp build",
-    "test": "nyc gulp test",
+    "test": "gulp test",
     "deploy": "gulp deploy"
   },
   "repository": {
@@ -30,9 +30,10 @@
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^0.0.15",
     "gulp-sizereport": "^1.2.0",
-    "gulp-mocha-phantomjs": "^0.12.1",
     "chai": "^3.5.0",
-    "nyc": "^10.3.2",
+    "gulp-mocha-phantomjs": "^0.12.1",
+    "mocha-phantomjs-istanbul": "^0.0.2",
+    "gulp-istanbul-report": "^0.0.1",
     "gulp-jsdoc3": "^1.0.1",
     "minami": "^1.2.3"
   }
