@@ -21,7 +21,7 @@ gulp.task('build', function () {
 
 gulp.task('test', ['build'], function () {
   return gulp.src('./test/index.html', { read: false })
-    .pipe(phantom({reporter: 'dot'}));
+    .pipe(phantom({reporter: 'spec'}));
 });
 
 gulp.task('doc', ['build', 'test'], function () {
