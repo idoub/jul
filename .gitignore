@@ -1,5 +1,5 @@
 .vscode/
-node_modules/
-dist/
-public/
 coverage/
+dist/
+node_modules/
+public/
