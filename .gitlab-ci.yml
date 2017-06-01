@@ -15,7 +15,7 @@ stages:
 build:
   stage: build
   script:
-    - npm run-script build
+    - npm run build
   artifacts:
     paths:
       - dist
@@ -25,7 +25,7 @@ build:
 test:
   stage: test
   script:
-    - npm run-script test
+    - npm run test
   artifacts:
     paths:
       - test
@@ -35,7 +35,7 @@ test:
 pages:
   stage: deploy
   script:
-    - npm run-script deploy
+    - npm run deploy
   artifacts:
     paths:
       - public
