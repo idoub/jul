@@ -21,9 +21,6 @@ build:
       - dist
   only:
     - master
-  tags:
-    - docker
-    - node
 
 test:
   stage: test
@@ -34,9 +31,6 @@ test:
       - test
   only:
     - master
-  tags:
-    - docker
-    - node
 
 pages:
   stage: deploy
@@ -47,6 +41,3 @@ pages:
       - public
   only:
     - master
-  tags:
-    - docker
-    - node
