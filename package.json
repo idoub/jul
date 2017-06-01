@@ -3,23 +3,29 @@
   "version": "0.0.1",
   "description": "Javascript Utility Library",
   "main": "gulpfile.js",
+  "config": {
+    "jul": "./dist/jul.js",
+    "min": "./dist/jul.min.js",
+    "inst": "./dist/jul.instrumented.js",
+    "cov": "./coverage"
+  },
   "scripts": {
     "postinstall": "npm run build && npm run test && npm run deploy",
 
-    "prebuild": "mkdir -p ./dist/ & mkdir -p ./coverage/",
+    "prebuild": "mkdir -p ./dist/ & mkdir -p $npm_package_config_cov/",
     "build": "npm run build:concat && npm run build:minify && npm run build:report",
-    "build:concat": "MODULES=$(cat .modules) && concat -o ./dist/$npm_package_name$npm_package_version.js ./src/jul.js ./src/addModule.js ${MODULES[@]}",
-    "build:minify": "minify ./dist/$npm_package_name$npm_package_version.js > ./dist/$npm_package_name$npm_package_version.min.js",
-    "build:report": "gzipped ./dist/$npm_package_name$npm_package_version.min.js > ./coverage/size",
+    "build:concat": "concat -o $npm_package_config_jul ./src/jul.js ./src/addModule.js $(cat .modules)",
+    "build:minify": "minify $npm_package_config_jul > $npm_package_config_min",
+    "build:report": "gzipped $npm_package_config_min > $npm_package_config_cov/size",
 
-    "pretest": "mkdir -p ./coverage/",
+    "pretest": "mkdir -p $npm_package_config_cov/",
     "test": "npm run test:instrument && npm run test:mocha && npm run test:report",
-    "test:instrument": "istanbul instrument ./dist/$npm_package_name$npm_package_version.js > ./dist/jul.instrumented.js",
+    "test:instrument": "istanbul instrument $npm_package_config_jul > $npm_package_config_inst",
     "test:mocha": "mocha-phantomjs ./test/index.html -R spec -k mocha-phantomjs-istanbul",
     "test:report": "istanbul report text-summary html",
-    "posttest": "rm ./dist/ju.instrumented.js",
+    "posttest": "rm $npm_package_config_inst",
 
-    "deploy": "jsdoc -c ./jsdoc.json -R ./README.md ./dist/$npm_package_name$npm_package_version.js"
+    "deploy": "jsdoc -c ./jsdoc.json -R ./README.md $npm_package_config_jul"
   },
   "repository": {
     "type": "git",
