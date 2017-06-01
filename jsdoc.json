@@ -16,8 +16,9 @@
         "protocol": "html://"
     },
     "opts": {
-        "destination": "public",
-        "template": "node_modules/minami"
+        "destination": "./public",
+        "template": "./node_modules/minami",
+        "tutorials": "./tutorials"
     },
     "plugins": [
         "plugins/markdown"
