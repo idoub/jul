@@ -1,5 +1,9 @@
 image: node:latest
 
+tags:
+  - docker
+  - node
+
 cache:
   paths:
   - node_modules/
