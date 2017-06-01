@@ -27,7 +27,7 @@
 
     "deploy": "jsdoc -c ./jsdoc.json -R ./README.md $npm_package_config_jul",
 
-    "clean": "git reset --hard && git clean -qdfx -e .*"
+    "clean": "git reset --hard && git clean -qdfx -e ./.*"
   },
   "repository": {
     "type": "git",
