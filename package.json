@@ -10,8 +10,6 @@
     "cov": "./coverage"
   },
   "scripts": {
-    "preinstall": "npm run clean",
-    "clean": "git reset --hard && git clean -qdfx -e .vscode",
     "postinstall": "npm run build && npm run test && npm run deploy",
 
     "prebuild": "mkdir -p ./dist/ & mkdir -p $npm_package_config_cov/",
@@ -27,7 +25,9 @@
     "test:report": "istanbul report text-summary html",
     "posttest": "rm $npm_package_config_inst",
 
-    "deploy": "jsdoc -c ./jsdoc.json -R ./README.md $npm_package_config_jul"
+    "deploy": "jsdoc -c ./jsdoc.json -R ./README.md $npm_package_config_jul",
+    
+    "clean": "git reset --hard && git clean -qdfx -e .vscode"
   },
   "repository": {
     "type": "git",
