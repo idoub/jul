@@ -17,6 +17,7 @@
     "test:instrument": "istanbul instrument ./dist/$npm_package_name$npm_package_version.js > ./dist/jul.instrumented.js",
     "test:mocha": "mocha-phantomjs ./test/index.html -R spec -k mocha-phantomjs-istanbul",
     "test:report": "istanbul report text-summary html",
+    "posttest": "rm ./dist/ju.instrumented.js",
 
     "deploy": "jsdoc -c ./jsdoc.json -R ./README.md ./dist/$npm_package_name$npm_package_version.js"
   },
