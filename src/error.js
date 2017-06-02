@@ -1,4 +1,4 @@
-(function () {
+(function (_) {
   'use strict';
   _.addModule('error', function () {
     this.errorSubscriber = this.subscribe('error', function (err) {

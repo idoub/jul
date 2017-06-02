@@ -1,4 +1,4 @@
-(function () {
+(function (_) {
   'use strict';
   _.addModule('filter', function () {
     /**

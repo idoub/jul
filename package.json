@@ -10,13 +10,14 @@
     "cov": "./coverage"
   },
   "scripts": {
-    "postinstall": "npm run build && npm run test && npm run deploy",
+    "postinstall": "npm run build && npm run deploy",
 
     "prebuild": "mkdir -p ./dist/ & mkdir -p $npm_package_config_cov/",
     "build": "npm run build:concat && npm run build:minify && npm run build:report",
     "build:concat": "concat -o $npm_package_config_jul ./src/jul.js ./src/addModule.js $(cat .modules)",
     "build:minify": "minify $npm_package_config_jul > $npm_package_config_min",
     "build:report": "gzipped $npm_package_config_min > $npm_package_config_cov/size",
+    "postbuild": "npm run test",
 
     "pretest": "mkdir -p $npm_package_config_cov/",
     "test": "npm run test:instrument && npm run test:mocha && npm run test:report",
@@ -27,7 +28,11 @@
 
     "deploy": "jsdoc -c ./jsdoc.json -R ./README.md $npm_package_config_jul",
     
-    "clean": "git reset --hard && git clean -qdfx -e .vscode"
+    "clean": "git reset --hard && git clean -qdfx -e .vscode",
+
+    "watch": "onchange-mini ./src/* ./test/* ./tutorials/* -- npm run postinstall",
+    "watch:src": "onchange-mini ./src/* -- npm run build",
+    "watch:docs": "onchange-mini ./src/* ./tutorials/* -- npm run deploy"
   },
   "repository": {
     "type": "git",
@@ -46,14 +51,15 @@
   },
   "homepage": "https://gitlab.com/jumpnjellyfish/jul#README",
   "devDependencies": {
-    "concat": "^1.0.3",
-    "minify": "^2.0.14",
-    "gzipped": "^0.0.5",
-    "nyc": "^10.3.2",
-    "istanbul": "^0.4.5",
-    "mocha-phantomjs": "^4.1.0",
-    "mocha-phantomjs-istanbul": "^0.0.2",
-    "jsdoc": "^3.4.3",
-    "minami": "^1.2.3"
+    "concat": "latest",
+    "minify": "latest",
+    "gzipped": "latest",
+    "nyc": "latest",
+    "istanbul": "latest",
+    "mocha-phantomjs": "latest",
+    "mocha-phantomjs-istanbul": "latest",
+    "onchange-mini": "latest",
+    "jsdoc": "latest",
+    "minami": "latest"
   }
 }

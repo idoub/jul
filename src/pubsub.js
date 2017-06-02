@@ -1,4 +1,4 @@
-(function () {
+(function (_) {
   'use strict';
   /**
    * A super simple pub/sub module

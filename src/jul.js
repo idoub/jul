@@ -8,8 +8,7 @@
  */
 (function (d) {
   'use strict';
-  var self = {},
-    modules = [];
+  var self = {};
   self.e = [];
 
   /**
@@ -34,7 +33,7 @@
    * @return {_} - A new underscore object.
    */
   this._ = function (o) {
-    o = o || [];
+    self.o = o = o || [];
     if (o instanceof _) return o;
     self = Object.create(_.prototype);
     self.e = (typeof o === 'string') ? [].slice.call(d.querySelectorAll(o)) : (Array.isArray(o)) ? o : [o];
