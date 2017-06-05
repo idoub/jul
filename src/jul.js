@@ -32,11 +32,13 @@
    * elements to be wrapped.
    * @return {_} - A new underscore object.
    */
-  this._ = function (o) {
+  var _ = function (o) {
     self.o = o = o || [];
     if (o instanceof _) return o;
     self = Object.create(_.prototype);
     self.e = (typeof o === 'string') ? [].slice.call(d.querySelectorAll(o)) : (Array.isArray(o)) ? o : [o];
     return self;
   };
+
+  this._ = _;
 }.call(this, document));

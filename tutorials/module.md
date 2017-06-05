@@ -35,7 +35,7 @@ _('.style').functionMethod('something');
 ```
 
 ## Static vs Function Methods
-Notice the difference in how to declare static methods vs function methods in the example above. We won't go into the prototype inheritance of **JUL** here (see {@tutorial understanding} to learn more), we just need to remember that in the module constructor function, any methods added using `this.method = function(){}` will be accessible by calling `_.method()`, and any methods added using `this.prototype.method = function(){}` will be accessible by calling `_().method()`.
+Notice the difference in how to declare static methods vs function methods in the example above. We won't go into the prototype inheritance of **JUL** here (see {@tutorial intro} to learn more), we just need to remember that in the module constructor function, any methods added using `this.method = function(){}` will be accessible by calling `_.method()`, and any methods added using `this.prototype.method = function(){}` will be accessible by calling `_().method()`.
 
 ## Private Methods and Properties
 Since the function passed as the second parameter of the **addModule** function is a straightforward constructor function, you can make private methods and properties just as you would in any constructor function. Simply declaring them within the scope of the constructor function and _not_ adding them to the `this` object, will keep them private, but still make them accessible to exposed functions.

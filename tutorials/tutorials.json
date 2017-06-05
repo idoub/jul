@@ -1,8 +1,8 @@
 {
-  "tutorial001": {
-    "title": "Understanding JUL"
+  "intro": {
+    "title": "Introduction to JUL"
   },
-  "tutorial002": {
+  "module": {
     "title": "Creating a new Module"
   }
 }
