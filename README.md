@@ -2,7 +2,7 @@
 [![build status](https://gitlab.com/jumpnjellyfish/jul/badges/master/build.svg)](https://gitlab.com/jumpnjellyfish/jul/commits/master)
 [![coverage report](https://gitlab.com/jumpnjellyfish/jul/badges/master/coverage.svg)](https://gitlab.com/jumpnjellyfish/jul/commits/master)
 
-> A nifty little Javascript Utility Library
+> A nifty little [Javascript Utility Library](http://www.gitlab.com/jumpnjellyfish/jul)
 
 ## Table of Contents
 - [Features](#features)
