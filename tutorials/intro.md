@@ -113,14 +113,14 @@ if(typof o === 'string') {                     // If the parameter is a string .
   }
 }
 ```
-5. `return self;` - returns the _newly created object_ that is an instance of `_`, but not the `_` object itself. It's prototype is whatever `_.prototype` is set to. So all [modules](@tutorial module) defined like `_.module = function(){}` will be accessible as static functions by calling `_.module()` and any [modules](@tutorial module) defined like `_.prototype.module = function(){}` will be accessible by calling `_(o).module()`.
+5. `return self;` - returns the _newly created object_ that is an instance of `_`, but not the `_` object itself. It's prototype is whatever `_.prototype` is set to. So all [modules]{@tutorial module} defined like `_.module = function(){}` will be accessible as static functions by calling `_.module()` and any [modules]{@tutorial module} defined like `_.prototype.module = function(){}` will be accessible by calling `_(o).module()`.
 
 ## File Structure
 ```none
 .
 ├─ src
 |  ├─ jul.js           // The core library. See above for details of how it works.
-|  ├─ addModule.js     // A required module. See [modules](@tutorial module).
+|  ├─ addModule.js     // A required module. See [modules]{@tutorial module}.
 |  └─ <module>.js      // All other modules providing functionality to JUL.
 ├─ test
 |  ├─ index.html       // The html page that drives the tests. Can be opened up in a browser to check manually.
@@ -140,7 +140,7 @@ if(typof o === 'string') {                     // If the parameter is a string .
 ## Modules
 Please see the documentation for the individaul functions on the left.
 
-Please see the [module tutorial](@tutorial module) for information on how to implement new modules.
+Please see the [module tutorial]{@tutorial module} for information on how to implement new modules.
 
 ## Building
 To build **JUL** simply clone the library, modify **.modules** to include the modules that you need, and run `npm install`. Concatenated and minified files will be placed in a new **dist** folder and documentation will be generated in a **public** folder.
