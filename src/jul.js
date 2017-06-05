@@ -22,10 +22,7 @@
  * 
  */
 /**
- * This is the core underscore module required for everything else.
- * It defines the selector function which can be used to create a new _ instance
- * wrapping the selected objects as well as defining an 'addModule' function
- * which can be used to extend the base _ object in a safe way.
+ * **JUL** is added to the global object (usually window) as `_`
  * 
  * @namespace _
  */
@@ -35,7 +32,10 @@
   self.e = [];
 
   /**
-   * ***The underscore selector and constructor.***
+   * This is the core underscore module required for everything else.
+   * It defines the selector function which can be used to create a new `_` instance
+   * wrapping the selected objects as well as defining an 'addModule' function
+   * which can be used to extend the base `_` object in a safe way.
    * 
    * Calling underscore as a function internally creates a new object with
    * the underscore object as it's prototype. It also creates a property `_.e`
