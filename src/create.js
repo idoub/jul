@@ -110,7 +110,6 @@
     };
 
     var create = function (str, isSVG) {
-      // var parent = document.createElement('wrapper');
       var parent = document.createDocumentFragment();
       var elem = null,
         nextIndex, head, i;
@@ -130,7 +129,6 @@
 
         case '^':
           str = str.slice(1);
-          // if (parent.nodeName !== 'WRAPPER') parent = parent.parentNode;
           if (!(parent instanceof DocumentFragment)) parent = parent.parentNode;
           break;
 
@@ -227,7 +225,6 @@
         }
       }
 
-      // while (parent.nodeName !== 'WRAPPER') {
       while(!(parent instanceof DocumentFragment)){
         parent = parent.parentNode;
       }
