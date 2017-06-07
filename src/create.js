@@ -110,7 +110,8 @@
     };
 
     var create = function (str, isSVG) {
-      var parent = document.createElement('wrapper');
+      // var parent = document.createElement('wrapper');
+      var parent = document.createDocumentFragment();
       var elem = null,
         nextIndex, head, i;
 
@@ -129,7 +130,8 @@
 
         case '^':
           str = str.slice(1);
-          if (parent.nodeName !== 'WRAPPER') parent = parent.parentNode;
+          // if (parent.nodeName !== 'WRAPPER') parent = parent.parentNode;
+          if (!(parent instanceof DocumentFragment)) parent = parent.parentNode;
           break;
 
         case '*':
@@ -225,7 +227,8 @@
         }
       }
 
-      while (parent.nodeName !== 'WRAPPER') {
+      // while (parent.nodeName !== 'WRAPPER') {
+      while(!(parent instanceof DocumentFragment)){
         parent = parent.parentNode;
       }
 
@@ -467,7 +470,7 @@
      * 
      * @param {object|string} obj - The representation of the html you want to  create.
      * @param {boolean}     isSVG - A boolean determining whether you want to create an SVG heierarchy instead of a standard HTML heierarchy.
-     * @return {element}          - An element of node type 'wrapper' that contains your created elements.
+     * @return {DocumentFragment} - A DocumentFragment containing the created nodes.
      */
     this.create = create;
   });

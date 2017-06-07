@@ -11,25 +11,20 @@
   },
   "scripts": {
     "postinstall": "npm run build && npm run deploy",
-
     "prebuild": "mkdir -p ./dist/ & mkdir -p $npm_package_config_cov/",
     "build": "npm run build:concat && npm run build:minify && npm run build:report",
     "build:concat": "concat -o $npm_package_config_jul ./src/jul.js ./src/addModule.js $(cat .modules)",
     "build:minify": "minify $npm_package_config_jul > $npm_package_config_min",
     "build:report": "gzipped $npm_package_config_min > $npm_package_config_cov/size",
     "postbuild": "npm run test",
-
     "pretest": "mkdir -p $npm_package_config_cov/",
     "test": "npm run test:instrument && npm run test:mocha && npm run test:report",
     "test:instrument": "istanbul instrument $npm_package_config_jul > $npm_package_config_inst",
     "test:mocha": "mocha-phantomjs ./test/index.html -R spec -k mocha-phantomjs-istanbul",
     "test:report": "istanbul report text-summary html",
     "posttest": "rm $npm_package_config_inst",
-
     "deploy": "jsdoc -c ./jsdoc.json -R ./README.md $npm_package_config_jul",
-    
     "clean": "git reset --hard && git clean -qdfx -e .vscode",
-
     "watch": "onchange-mini ./src/* ./test/* ./tutorials/* -- npm run postinstall",
     "watch:src": "onchange-mini ./src/* -- npm run build",
     "watch:docs": "onchange-mini ./src/* ./tutorials/* -- npm run deploy"
