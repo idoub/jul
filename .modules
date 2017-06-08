@@ -13,3 +13,4 @@ src/after.js
 src/ajax.js
 src/append.js
 src/attrs.js
+src/data.js
