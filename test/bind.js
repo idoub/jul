@@ -2,12 +2,11 @@
   'use strict';
   _.addModule('bind', function () {
     var Gem = function() {
-      var self;
+      var self = {};
       var bound = [];
 
       this.addChild = function(childName) {
-        self = self || {};
-        if(self.hasOwnProperty(childName)) return this;
+        if(this.hasOwnProperty(childName)) return this;
         self[childName] = undefined;
         Object.defineProperty(this,childName, {
           enumerable: true,
