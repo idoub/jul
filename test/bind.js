@@ -56,25 +56,29 @@
       return findDescendant(generations,parent[childName]);
     };
 
-    var elementChange = function(evt) {
-      console.log(evt.target, 'changed');
-    };
-
-    var bind = function(element) {
+    var getData = function(element) {
       if(!(element instanceof Node)) {
-        console.log(element,' is not recognised as a Node and will not be bound.');
-        return;
+        throw new Error('Element is not recognised as a Node and cannot be bound.');
       }
 
       var data = _(element).data().j;
       if(typeof data === 'undefined') {
-        console.log(element,' does not have the binding attribute \'data-j\' and will not be bound.');
+        throw new Error('Element does not have the binding attribute \'data-j\' and cannot be bound.');
       }
+      return data.replace(/\r?\n|\r|\s/g,'');
+    };
 
+    var elementChange = function(evt) {
+      var data = getData(evt.target);
+      var boundObj = findDescendant(data.split(':')[0].split('.'));
+      boundObj.value = evt.target.value;
+    };
+
+    var bind = function(element) {
+      var data = getData(element);
       element.addEventListener('change',elementChange);
       element.addEventListener('input',elementChange);
 
-      data = data.replace(/\r?\n|\r|\s/g,'');
       var bindings = data.split(':');
       var boundObj = findDescendant(bindings.shift().split('.'));
       for(var i=0;i<bindings.length;i++) {
@@ -85,9 +89,10 @@
 
     this.bind = bind;
     this.prototype.bind = function() {
-      this.each(function(e){
-        bind(e);
-      });
+      this.each(function(e){bind(e);});
+    };
+    this.bindAll = function() {
+      _('[data-j]').each(function(e){bind(e);});
     };
   },['each','data','extend','pubsub']);
 })(_||{});
