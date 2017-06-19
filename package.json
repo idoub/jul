@@ -13,7 +13,7 @@
     "postinstall": "npm run build && npm run deploy",
     "prebuild": "mkdir -p ./dist/ & mkdir -p $npm_package_config_cov/",
     "build": "npm run build:concat && npm run build:minify && npm run build:report",
-    "build:concat": "concat -o $npm_package_config_jul ./src/jul.js ./src/addModule.js $(cat .modules)",
+    "build:concat": "rollup -c",
     "build:minify": "minify $npm_package_config_jul > $npm_package_config_min",
     "build:report": "gzipped $npm_package_config_min > $npm_package_config_cov/size",
     "postbuild": "npm run test",
@@ -46,8 +46,7 @@
   },
   "homepage": "https://gitlab.com/jumpnjellyfish/jul#README",
   "devDependencies": {
-    "concat": "latest",
-    "rollup": "^0.43.0",
+    "rollup": "latest",
     "minify": "latest",
     "gzipped": "latest",
     "nyc": "latest",
