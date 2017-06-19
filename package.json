@@ -2,7 +2,7 @@
   "name": "jul",
   "version": "0.0.1",
   "description": "Javascript Utility Library",
-  "main": "gulpfile.js",
+  "main": "./dist/jul.min.js",
   "config": {
     "jul": "./dist/jul.js",
     "min": "./dist/jul.min.js",
@@ -44,7 +44,7 @@
   "bugs": {
     "url": "https://gitlab.com/jumpnjellyfish/jul/issues"
   },
-  "homepage": "https://gitlab.com/jumpnjellyfish/jul#README",
+  "homepage": "https://gitlab.com/jumpnjellyfish/jul",
   "devDependencies": {
     "rollup": "latest",
     "minify": "latest",
