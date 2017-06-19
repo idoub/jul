@@ -1,10 +1,46 @@
 (function (_) {
   'use strict';
   _.addModule('bind', function () {
-    var bound = {};
+    var state = new Gem();
 
-    var updateElement = function(e,v) {
-      console.log(e,v);
+    function Gem(existing) {
+      var bound = [];
+
+      this.addChild = function(childName) {
+        var value;
+        Object.defineProperty(this,childName,{
+          get: function() { return value;},
+          set: function(v) { 
+            _.each(bound,function(e) {
+              updateElement(e,childName,v);
+            });
+            value = v;
+          }
+        });
+      };
+
+      this.bind = function(element) {
+        bound.push(element);
+      };
+
+      for(var prop in existing) {
+        if(existing.hasOwnProperty(prop)) {
+          this.addChild(prop);
+          this[prop] = existing[prop];
+        }
+      }
+    }
+
+    var updateElement = function(e,k,v) {
+      console.log('Updating Element',e,k,v);
+      switch(k) {
+        case 'text':
+          e.innerText = v;
+          break;
+        default:
+          e.setAttribute(k,v);
+          break;
+      }
     };
 
     var getData = function(element) {
@@ -15,53 +51,74 @@
     };
 
     var findDescendant = function(generations,parent) {
-      parent = parent || bound;
       var childName = generations.shift();
-      parent[childName] = parent[childName] || {};
+
+      parent = parent || state;
+      if(!(parent instanceof Gem)) parent = new Gem(parent);
+
+      parent[childName] = parent[childName] || new Gem();
+      if(!(parent[childName] instanceof Gem)) parent[childName] = new Gem(parent[childName]);
+
       if(generations.length === 0) {
         return parent[childName];
       }
+
       return findDescendant(generations,parent[childName]);
     };
 
-    var bind = function(o) {
+    var bind = function(e) {
       // If nothing has been passed, bind each element with data-j attribute
-      if(!o) this('[data-j]').each(this.bind);
-      // If o is an element, bind it
-      if(o instanceof Node) {
-        var data = getData(o);
-        var props = data.split(',');
-        for(var i=0;i<props.length;i++) {
-          var segments = props[i].split(':');
-          var boundObj = findDescendant(segments[1].split('.'));
-          bind(boundObj);
-          console.log(boundObj,segments[0]);
-        }
-      }
-      // If o is an array-like object, try to bind each one
-      if(o instanceof Object && o.hasOwnProperty(length)) _.each(o,this.bind);
-      // Turn o into an object if it isn't and preserve it's value
-      if(!(o instanceof Object)) {
-        var tmp = o;
-        o = {};
-        o._value = tmp;
-      }
-      else { o._value = undefined; }
-      if(!o.hasOwnProperty('value')) {
-        o.bound = [];
-        Object.defineProperty(o,'value',{
-          get: function() {
-            return o._value;
-          },
-          set: function(v) {
-            _.each(o.bound,function(e){updateElement(e,v);});
-            o._value = v;
-          }
-        });
+      if(!e) {this('[data-j]').each(this.bind); return;}
+
+      // Get the data-j attribute
+      var segments = getData(e).split(':');
+      var boundObj = findDescendant(segments[0].split('.'));
+      boundObj.bind(e);
+
+      var props = segments[1].split(',');
+      for(var i=0;i<props.length;i++) {
+        updateElement(e,props[i],boundObj[props[i]]);
       }
     };
 
     this.bind = bind;
-    this.bound = bound;
-  },['each',]);
+    this.state = state;
+  },[]);
 })(_||{});
+
+_.state.link = {
+  href: '../dist/jul.min.js',
+  text: 'JUL',
+  download: '../dist/jul.min.js'
+};
+
+_.state.input = {
+  id: 'mood',
+  for: 'mood',
+  text: 'Happy',
+  type: 'checkbox',
+  value: 'mood'
+};
+
+_.state.items = [
+  {
+    id: 'item1',
+    text: 'item1'
+  },
+  {
+    id: 'item2',
+    text: 'item2'
+  },
+  {
+    id: 'item3',
+    text: 'item3'
+  },
+  {
+    id: 'item4',
+    text: 'item4'
+  },
+];
+
+_.state.buttonClick = function(evt) {
+  console.log('clicked the button', evt.target);
+};

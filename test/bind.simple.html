@@ -2,14 +2,16 @@
 <html>
   <head>
     <title>JS -&gt; HTML</title>
-    <script src="../dist/jul.min.js"></script>
+    <script src="../dist/jul.js"></script>
     <script src="./bind.js"></script>
   </head>
   <body>
-    <a id="test" data-j="href:link.href,text:link.text,download:link.filename"></a>
-    <label data-j="test:text"><input data-j="test:value:type" /></label>
+    <a data-j="link:href,text,download"></a>
+    <label data-j="input:text,for"></label>
+    <input data-j="input:type,value,id" />
+    <!--<ul data-j="loop:items:item">
+      <li data-j="id:item.id,text:item.text"></li>
+    </ul>
+    <button data-j="click:buttonClick"></button>-->
   </body>
-  <script>
-    
-  </script>
 </html>
