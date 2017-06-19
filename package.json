@@ -47,6 +47,7 @@
   "homepage": "https://gitlab.com/jumpnjellyfish/jul#README",
   "devDependencies": {
     "concat": "latest",
+    "rollup": "^0.43.0",
     "minify": "latest",
     "gzipped": "latest",
     "nyc": "latest",
