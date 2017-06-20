@@ -1,17 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>JS -&gt; HTML</title>
-    <script src="../dist/jul.js"></script>
-    <script src="./bind.js"></script>
-  </head>
-  <body>
-    <a data-j="link:href,text,download"></a>
-    <label data-j="input:text,for"></label>
-    <input data-j="input:type,value,id" />
-    <!--<ul data-j="loop:items:item">
+
+<head>
+  <title>JS -&gt; HTML</title>
+  <script src="../dist/jul.js"></script>
+  <script src="./bind.js"></script>
+</head>
+
+<body>
+  <!--<h1>Basic HTML</h1>
+  <h1 data-j="h1:text"></h1>
+  <h2 data-j="h2:text"></h2>
+  <h3 data-j="h3:text"></h3>
+  <h4 data-j="h4:text"></h4>
+  <h5 data-j="h5:text"></h5>
+  <h6 data-j="h6:text"></h6>
+  <p data-j="p:text"></p>
+  <br>
+  <hr>
+
+  <h1>Formatting</h1>
+  <abbr data-j="abbr:text"></abbr>
+  <address data-j="address:text"></address>
+  <b data-j="b:text"></b>
+  <bdi data-j="bdi:text"></bdi>
+  <bdo data-j="bdo:dir,text"></bdo>
+  <blockquote data-j="blockquote:cite,text"></blockquote>
+  <cite data-j="cite:text"></cite>
+  <code data-j="code:text"></code>
+  <del data-j="del:cite,datetime,text"></del>
+  <dfn data-j="dfn:text"></dfn>
+  <em data-j="em:text"></em>
+  <i data-j="i:text"></i>
+  <ins data-j="ins:cite,datetime,text"></ins>
+  <kbd data-j="kbd:text"></kbd>
+  <mark data-j="mark:text"></mark>
+  <meter data-j="meter:form,high,low,max,min,optimum,value,text"></meter>
+
+  <p data-j="global:accesskey,class,contenteditable,contextmenu,data-k,dir,draggable,dropzone,hidden,id,lang,spellcheck,style,tabindex,title,translate"></p>
+  <p data-j="windowevents:afterprint,beforeprint,beforeunload,error,hashchange,load,message,offline,online,pagehide,pageshow,popstate,resize,storage,unload"></p>
+  <form data-j="formevents:blur,change,contextmenu,focus,input,invalid,reset,search,select,submit"></form>
+  <p data-j="keyboardevents:keydown,keypress,keyup"></p>
+  <button data-j="mouseevents:click,dblclick,mousedown,mousemove,mouseout,mouseover,mouseup,weel"></button>
+  <p data-j="dragevents:drag,dragend,dragenter,dragleave,dragover,dragstart,drop,scroll"></p>
+  <p data-j="clipboardevents:copy,cut,paste"></p>
+  <video data-j="mediaevents:abort,canplay,canplaythrough,cuechange,durationchange,emptied,ended,error,loadeddata,loadedmetadata,loadstart,pause,play,playing,prgoress,ratechange,seeked,seeking,stalled,suspend,timeupdate,volumechange,waiting"></video>
+  <p data-j="miscevents:show,toggle"></p>-->
+  <a data-j="link:download-href,href,hreflang-href,text"></a>
+
+  <hr>
+
+  <input data-j="checkbox:type,value,id" />
+  <p data-j="checkbox:text-checked"></p>
+
+  <hr>
+
+  <textarea data-j="textarea:text"></textarea>
+  <p data-j="textarea:text-value"></p>
+
+  <hr>
+
+  <input data-j="radio:type,value,id" />
+  <input data-j="radio:type,value,id" />
+  <p data-j="radio:text-value"></p>
+  <!--<ul data-j="loop:items:item">
       <li data-j="id:item.id,text:item.text"></li>
     </ul>
     <button data-j="click:buttonClick"></button>-->
-  </body>
+</body>
+
 </html>
