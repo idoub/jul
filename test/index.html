@@ -1,23 +1,32 @@
 <!DOCTYPE hmtl>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Mocha Tests</title>
-        <link href="http://rawgit.com/mochajs/mocha/master/mocha.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div id="div1" class="div1class red" data-attr1="attribute 1" data-attr2="Another Attribute"></div>
-        <div id="div2" class="div2class red"></div>
 
-        <div id="mocha"></div>
-        <script src="http://rawgit.com/mochajs/mocha/master/mocha.js"></script>
-        <script src="http://rawgit.com/chaijs/chai/master/chai.js"></script>
-        <script>mocha.setup('bdd')</script>
-        <script src="../dist/jul.js"></script>
-        <script src="../dist/jul.instrumented.js"></script>
-        <script src="test.jul.js"></script>
-        <script src="test.attrs.js"></script>
-        <script src="test.create.js"></script>
-        <script>mocha.run()</script>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link href="http://rawgit.com/mochajs/mocha/master/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="div1" class="div1class red" data-attr1="attribute 1" data-attr2="Another Attribute"></div>
+    <div id="div2" class="div2class red"></div>
+
+    <div id="mocha"></div>
+    <script src="http://rawgit.com/mochajs/mocha/master/mocha.js"></script>
+    <script src="http://rawgit.com/chaijs/chai/master/chai.js"></script>
+    <script>
+        mocha.setup('bdd')
+    </script>
+    <script src="../dist/jul.js"></script>
+    <script src="../dist/jul.instrumented.js"></script>
+    <script src="test.jul.js"></script>
+    <script src="test.add.js"></script>
+    <script src="test.create.js"></script>
+    <script src="test.attrs.js"></script>
+    <script src="test.each.js"></script>
+    <script>
+        mocha.run()
+    </script>
+</body>
+
 </html>

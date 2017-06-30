@@ -11,7 +11,7 @@ import _ from './jul.js';
  */
 _.prototype.add = function (obj) {
   var newObj = _(obj);
-  return _(newObj.e.concat(this.e));
+  return _(this.e.concat(newObj.e));
 };
 
 export default _;
