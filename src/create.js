@@ -5,14 +5,18 @@ var attributeRegex = /(\S*=".*?")|(\S*=\S*)|(\S+)/gi;
 var dollarRegex = /(\$+@?.*$)/g;
 var atModifierRegex = /@(.*)/;
 
+
+var typeMap = {
+  'EM': 'span',
+  'P': 'span',
+  'UL': 'li',
+  'TABLE': 'tr',
+  'TR': 'td'
+};
+
 var pad = function (pad, str, padleft) {
-  if (typeof str === 'undefined')
-    return pad;
-  if (padleft) {
-    return (pad + str).slice(-pad.length);
-  } else {
-    return (str + pad).substring(0, pad.length);
-  }
+  if (typeof str === 'undefined') return pad;
+  return (padleft) ? (pad + str).slice(-pad.length) : (str + pad).substring(0, pad.length);
 };
 
 var getNextIndex = function (str, srch) {
@@ -52,22 +56,21 @@ var handleNumbering = function (clone, count, max, isSVG) {
     }
     clone.className = classes.join(' ');
   }
+
   var attributes = clone.attributes;
   for (i = 0; i < attributes.length; i++) {
     if (attributes[i].value.indexOf('$') !== -1) {
       attributes[i].value = replaceDollar(attributes[i].value, count, max);
     }
   }
+
   if (clone.innerText.indexOf('$') !== -1) {
     clone.innerText = replaceDollar(clone.innerText, count, max);
   }
+
   if (clone.hasAttribute('dollarnodename')) {
     var newClone, type = clone.getAttribute('dollarnodename');
-    if (isSVG) {
-      newClone = document.createElementNS('http://www.w3.org/2000/svg', type);
-    } else {
-      newClone = document.createElement(type);
-    }
+    newClone = createElem(type, isSVG);
     clone.removeAttribute('dollarnodename');
     for (i = 0; i < clone.attributes.length; i++) {
       newClone.setAttribute(clone.attributes[i].name, clone.attributes[i].value);
@@ -75,34 +78,18 @@ var handleNumbering = function (clone, count, max, isSVG) {
     newClone.innerHTML = clone.innerHTML;
     clone = newClone;
   }
+
   return clone;
+};
+
+var createElem = function (type, isSVG) {
+  return (isSVG) ? document.createElementNS('http://www.w3.org/2000/svg', type) : document.createElement(type);
 };
 
 var makeElem = function (parent, elem, isSVG) {
   if (elem === null) {
-    var type = 'div';
-    switch (parent.nodeName) {
-      case 'EM':
-        type = 'span';
-        break;
-      case 'P':
-        type = 'span';
-        break;
-      case 'UL':
-        type = 'li';
-        break;
-      case 'TABLE':
-        type = 'tr';
-        break;
-      case 'TR':
-        type = 'td';
-        break;
-    }
-    if (isSVG) {
-      elem = document.createElementNS('http://www.w3.org/2000/svg', type);
-    } else {
-      elem = document.createElement(type);
-    }
+    var type = typeMap[parent.nodeName] || 'div';
+    elem = createElem(type, isSVG);
     parent.appendChild(elem);
   }
   return elem;
@@ -123,121 +110,108 @@ _.create = function (str, isSVG) {
   var elem = null,
     nextIndex, head, i;
 
-  while (str.length > 0) {
-    switch (str[0]) {
-      case '>':
-        str = str.slice(1);
-        parent = elem;
-        elem = null;
-        break;
-
-      case '+':
-        str = str.slice(1);
-        elem = null;
-        break;
-
-      case '^':
-        str = str.slice(1);
-        if (!(parent instanceof DocumentFragment)) parent = parent.parentNode;
-        break;
-
-      case '*':
-        str = str.slice(1);
-        elem = makeElem(parent, elem, isSVG);
-        nextIndex = getNextIndex(str, /\D/);
-        var num = +str.substring(0, nextIndex);
-        elem.setAttribute('toclone', num);
-        str = str.substring(nextIndex);
-        break;
-
-      case '(':
-        str = str.slice(1);
-        var group = document.createElement('group');
-        parent.appendChild(group);
-        parent = group;
-        elem = null;
-        break;
-
-      case ')':
-        str = str.slice(1);
-        do {
-          elem = parent;
-          parent = parent.parentNode;
-        } while (elem.nodeName !== 'GROUP');
-        break;
-
-      case '[':
-        str = str.slice(1);
-        elem = makeElem(parent, elem, isSVG);
-        nextIndex = getNextIndex(str, ']');
-        head = str.substring(0, nextIndex);
-        var attributes = head.match(attributeRegex);
-        for (i = 0; i < attributes.length; i++) {
-          if (attributes[i].indexOf('=') !== -1) {
-            var keyVal = attributes[i].split('=');
-            var val = keyVal[1];
-            if (val[0] === '"') val = val.substring(1, val.length - 1);
-            elem.setAttribute(keyVal[0], val);
-          } else {
-            elem.setAttribute(attributes[i], '');
-          }
-        }
-        str = str.substring(nextIndex + 1);
-        break;
-
-      case '{':
-        str = str.slice(1);
-        elem = makeElem(parent, elem, isSVG);
-        nextIndex = getNextIndex(str, '}');
-        head = str.substring(0, nextIndex);
-        elem.innerText = head;
-        str = str.substring(nextIndex + 1);
-        break;
-
-      case '#':
-        str = str.slice(1);
-        elem = makeElem(parent, elem, isSVG);
-        nextIndex = getNextIndex(str, separatorRegex);
-        head = str.substring(0, nextIndex);
-        elem.id = head;
-        str = str.substring(nextIndex);
-        break;
-
-      case '.':
-        str = str.slice(1);
-        elem = makeElem(parent, elem, isSVG);
-        nextIndex = getNextIndex(str, separatorRegex);
-        head = str.substring(0, nextIndex);
-        elem.className += (elem.className.length > 0 ? ' ' : '') + head;
-        str = str.substring(nextIndex);
-        break;
-
-      default:
-        nextIndex = getNextIndex(str, separatorRegex);
-        head = str.substring(0, nextIndex);
-        if (head.indexOf('$') !== -1) {
-          if (isSVG) {
-            elem = document.createElementNS('http://www.w3.org/2000/svg', head.replace('$', 1));
-          } else {
-            elem = document.createElement(head.replace('$', 1));
-          }
-          elem.setAttribute('dollarnodename', head);
+  var functionMap = {
+    '>': function () {
+      str = str.slice(1);
+      parent = elem;
+      elem = null;
+    },
+    '+': function () {
+      str = str.slice(1);
+      elem = null;
+    },
+    '^': function () {
+      str = str.slice(1);
+      if (!(parent instanceof DocumentFragment)) parent = parent.parentNode;
+    },
+    '*': function () {
+      str = str.slice(1);
+      elem = makeElem(parent, elem, isSVG);
+      nextIndex = getNextIndex(str, /\D/);
+      var num = +str.substring(0, nextIndex);
+      elem.setAttribute('toclone', num);
+      str = str.substring(nextIndex);
+    },
+    '(': function () {
+      str = str.slice(1);
+      var group = document.createElement('group');
+      parent.appendChild(group);
+      parent = group;
+      elem = null;
+    },
+    ')': function () {
+      str = str.slice(1);
+      do {
+        elem = parent;
+        parent = parent.parentNode;
+      } while (elem.nodeName !== 'GROUP');
+    },
+    '[': function () {
+      str = str.slice(1);
+      elem = makeElem(parent, elem, isSVG);
+      nextIndex = getNextIndex(str, ']');
+      head = str.substring(0, nextIndex);
+      var attributes = head.match(attributeRegex);
+      for (i = 0; i < attributes.length; i++) {
+        if (attributes[i].indexOf('=') !== -1) {
+          var keyVal = attributes[i].split('=');
+          var val = keyVal[1];
+          if (val[0] === '"') val = val.substring(1, val.length - 1);
+          elem.setAttribute(keyVal[0], val);
         } else {
-          if (isSVG) {
-            elem = document.createElementNS('http://www.w3.org/2000/svg', head);
-          } else {
-            elem = document.createElement(head);
-          }
+          elem.setAttribute(attributes[i], '');
         }
-        parent.appendChild(elem);
-        str = str.substring(nextIndex);
+      }
+      str = str.substring(nextIndex + 1);
+    },
+    '{': function () {
+      str = str.slice(1);
+      elem = makeElem(parent, elem, isSVG);
+      nextIndex = getNextIndex(str, '}');
+      head = str.substring(0, nextIndex);
+      elem.innerText = head;
+      str = str.substring(nextIndex + 1);
+    },
+    '#': function () {
+      str = str.slice(1);
+      elem = makeElem(parent, elem, isSVG);
+      nextIndex = getNextIndex(str, separatorRegex);
+      head = str.substring(0, nextIndex);
+      elem.id = head;
+      str = str.substring(nextIndex);
+    },
+    '.': function () {
+      str = str.slice(1);
+      elem = makeElem(parent, elem, isSVG);
+      nextIndex = getNextIndex(str, separatorRegex);
+      head = str.substring(0, nextIndex);
+      elem.className += (elem.className.length > 0 ? ' ' : '') + head;
+      str = str.substring(nextIndex);
     }
-  }
+  };
 
-  while (!(parent instanceof DocumentFragment)) {
-    parent = parent.parentNode;
-  }
+  var defaultFunction = function () {
+    nextIndex = getNextIndex(str, separatorRegex);
+    head = str.substring(0, nextIndex);
+    if (head.indexOf('$') !== -1) {
+      elem = createElem(head.replace('$', 1), isSVG);
+      elem.setAttribute('dollarnodename', head);
+    } else {
+      elem = createElem(head, isSVG);
+    }
+    parent.appendChild(elem);
+    str = str.substring(nextIndex);
+  };
 
+  // This is the main loop, that goes through each character in the string and
+  // calls the correct function for that character from either the function map
+  // or the default function.
+  while (str.length > 0)(functionMap[str[0]] || defaultFunction)();
+
+  // Crawl back up the tree until we find the root parent node.
+  while (!(parent instanceof DocumentFragment)) parent = parent.parentNode;
+
+  // Handle postponed clones - that is, elements that should be duplicated.
   var cloneables = parent.querySelectorAll('[toclone]');
   for (i = 0; i < cloneables.length; i++) {
     elem = cloneables[i];
@@ -252,6 +226,7 @@ _.create = function (str, isSVG) {
     elem.parentNode.removeChild(elem);
   }
 
+  // Handle postponed groups.
   var groups = parent.querySelectorAll('group');
   for (i = 0; i < groups.length; i++) {
     var groupParent = groups[i].parentNode;

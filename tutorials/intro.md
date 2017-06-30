@@ -38,12 +38,12 @@ This tutorial should get you up and running with **JUL** and give you an introdu
 </table>
 
 #### **JUL** wants to help you help yourself
-**JUL** is **NOT** intended to be a "plug_n_play" library and was written in such a way as to encourage developer interaction, understanding and modification. **JUL** is intentionally written to provide useful utility functions without obscuring the implementation, maintaining state, or discouraging the use of native JavaScript functions. It is best to think of **JUL** as a combination of useful utility functions that you might gather from a website like [StackOverflow](https://stackoverflow.com). It is not meant to solve all your needs, but to **provide a platform to help you meet your own needs**. Too many ew developers fall into the pit of _library dependency_ and are unable to meet their own needs without the help of the library. **JUL** intends to break that dependency. As a result it provides simple, concise, easy-to-understand functions that do very specific things and are intended to be wrapped, extended or even rewritten to suit your specific needs.
+**JUL** is **NOT** intended to be a "plug_n_play" library and was written in such a way as to encourage developer interaction, understanding and modification. **JUL** is intentionally written to provide useful utility functions without obscuring the implementation, maintaining state, or discouraging the use of native JavaScript functions. It is best to think of **JUL** as a combination of useful utility functions that you might gather from a website like [StackOverflow](https://stackoverflow.com). It is not meant to solve all your needs, but to **provide a platform to help you meet your own needs**. Too many new developers fall into the pit of _library dependency_ and are unable to meet their own needs without the help of the library. **JUL** intends to break that dependency. As a result it provides simple, concise, easy-to-understand functions that do very specific things and are intended to be wrapped, extended or even rewritten to suit your specific needs.
 
 #### An example
 For example, the **pubsub** module provides simple publish/subscribe functionality. It does so through the `_.publish(topic, data)` and `_.subscribe(topic, listener)` functions. An immediate extension to the functionality of **pubsub** would be to subscribe an already wrapped object to a topic. This function might look like the following:
 ```javascript
-this.prototype.subscribe = function(topic) {
+_.prototype.subscribe = function(topic) {
   var subscribers = [];
   this.each(function(e){
     subscribers.push(this.subscribe(topic,e));
@@ -53,7 +53,7 @@ this.prototype.subscribe = function(topic) {
 ```
 In this case, the `_(selector).subscribe` method returns an array of subscribers that can be used to unsubscribe the originally wrapped elements from their topics. But what if that doesn't meet your needs? Perhaps for your use case it would be better to store the subscriber on the object so you can just grab the object again to unsubscribe like so:
 ```javascript
-this.prototype.subscribe = function(topic) {
+_.prototype.subscribe = function(topic) {
   this.each(function(e){
     e.subscriber = e.subscriber || {};
     e.subscriber[topic] = this.subscribe(topic,e);
@@ -76,7 +76,7 @@ var _ = function (o) {
 ```
 > _NOTE_: The function has been unwrapped and slightly rewritten to be clearer. The real function should be easy to understand once you know how this works.
 
-So what's going on here? To start with, `_` itself is a function, which means it has a `.prototype` property and can be used as a constructor for new objects. So if you run the above code to create a minial **JUL** you can then run:
+So what's going on here? To start with, `_` itself is a function, which means it has a `.prototype` property and can be used as a constructor for new objects. So if you run the above code to create a minimal **JUL** you can then run:
 ```javascript
 var obj = new _
 console.log(obj);           // prints _ {e: Array(0)}
@@ -91,28 +91,28 @@ This is straightforward enough. `_` is a function with a _prototype property_ th
 
    Here's some code to demonstrate:
    ```javascript
-var _ = function(){console.log('running');};
-var obj = Object.create(_.prototype);
-var jbo = new _;                             // prints running
-console.log(obj)                             // prints _ {}
-console.log(jbo)                             // prints _ {}
-console.log(obj.__proto__)                   // prints Object {foo: "bar"}
-console.log(jbo.__proto__)                   // prints Object {foo: "bar"}
-```
-   So one of the differences between `Object.create` and the `new` keyword is that using `new` will use the given function as the constructor for a new object, whereas `Object.create` simply uses the _prototype_ of the given function as the created object's ____proto____ property and sets the given function as the object's constructor, but doesn't run the constructor.
+   var _ = function(){console.log('running');};
+   var obj = Object.create(_.prototype);
+   var jbo = new _;                             // prints running
+   console.log(obj)                             // prints _ {}
+   console.log(jbo)                             // prints _ {}
+   console.log(obj.__proto__)                   // prints Object {foo: "bar"}
+   console.log(jbo.__proto__)                   // prints Object {foo: "bar"}
+   ```
+   So one of the differences between `Object.create` and the `new` keyword is that using `new` will use the given function as the constructor for a new object, whereas `Object.create` simply uses the given argument as the created object's ____proto____ property and sets the given function as the object's constructor, but doesn't run the constructor.
 4. `self.e = (typeof o === 'string') ? [].slice.call(document.querySelectorAll(o)) : (Array.isArray(o)) ? o : [o];` - it's a little bit long, but it's pretty simple once broken down. Here it is as nested ifs with descriptions.
    ```javascript
-if(typof o === 'string') {                     // If the parameter is a string ...
-  var elements = document.querySelectorAll(o); // ... let's use it as a selector to find elements on the page ...
-  return [].slice.call(elements);              // ... and convert the NodeList to an array.
-} else {                                       // If the parameter is not a string ...
-  if(Array.isArray(o)) {                       // ... check if it's an array ...
-    return o;                                  // ... and return it if it is.
-  } else {                                     // If it's not an array either ...
-    return [o];                                // ... wrap in an array and return it.
-  }
-}
-```
+   if(typof o === 'string') {                     // If the parameter is a  string ...
+     var elements = document.querySelectorAll(o); // ... let's use it as a  selector to find elements on the page ...
+     return [].slice.call(elements);              // ... and convert the  NodeList to an array.
+   } else {                                       // If the parameter is  not a string ...
+     if(Array.isArray(o)) {                       // ... check if it's an  array ...
+       return o;                                  // ... and return it if  it is.
+     } else {                                     // If it's not an array  either ...
+       return [o];                                // ... wrap in an array  and return it.
+     }
+   }
+   ```
 5. `return self;` - returns the _newly created object_ that is an instance of `_`, but not the `_` object itself. It's prototype is whatever `_.prototype` is set to. So all [modules]{@tutorial module} defined like `_.module = function(){}` will be accessible as static functions by calling `_.module()` and any [modules]{@tutorial module} defined like `_.prototype.module = function(){}` will be accessible by calling `_(o).module()`.
 
 ## File Structure
