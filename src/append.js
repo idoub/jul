@@ -4,11 +4,11 @@ import each from './each.js';
 /**
  * Append the provided content to the end of each of the currently wrapped elements.
  * 
- * @memberof _
- * @alias _(o).append
+ * @memberof jul
+ * @alias jul(o).append
  * 
  * @param {node|string} content - The content you want appended to each of the currently wrapped elements.
- * @return {_}                  - The underscore object that the method was called on.
+ * @return {jul}                  - The underscore object that the method was called on.
  */
 _.prototype.append = function (content) {
   var frag = document.createDocumentFragment();

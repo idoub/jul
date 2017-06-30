@@ -3,8 +3,8 @@ import _ from './jul.js';
 /**
  * JS Implementation of MurmurHash3
  * 
- * @memberof _
- * @alias _.hash
+ * @memberof jul
+ * @alias jul.hash
  * 
  * @author Gary Court <gary.court@gmail.com>
  * @see http://github.com/garycourt/murmurhash-js

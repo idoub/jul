@@ -4,8 +4,8 @@ import each from './each.js';
 /**
  * Provides an object representing the data attributes of the wrapped elements.
  * 
- * @memberof _
- * @alias _(o).data
+ * @memberof jul
+ * @alias jul(o).data
  * 
  * @return {object}                - An object mapping attribute names to their values.
  */

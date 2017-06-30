@@ -2,8 +2,8 @@ import _ from './jul.js';
 /**
  * This function allows you to extend the core underscore object in a safe way, defining other dependencies for your module as well as namespacing if you need.
  * 
- * @memberof _
- * @alias _.addModule
+ * @memberof jul
+ * @alias jul.addModule
  * 
  * @param {string}   name         - The name of the module you are adding.
  * @param {function} constructor  - An IIFE to define your module.

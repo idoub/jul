@@ -13,36 +13,36 @@ Creating a new module is pretty straightforward. All it requires is calling the 
 ## Example
 ```javascript
 // Define a new module.
-_.addModule('moduleName',function() {
+jul.addModule('moduleName',function() {
   // This is an internal variable. It won't be accessible outside the module scope.
   var default = {'foo':bar}
 
-  // This method is defined directly on the _ object. It will be accessible by _.staticMethod.
+  // This method is defined directly on the jul object. It will be accessible by jul.staticMethod.
   this.staticMethod = function(params){
     // Using a required module.
-    _.extend(default,params)
+    jul.extend(default,params)
   };
 
-  // This method is defined on the _ function. It will be accessible by _().functionMethod.
+  // This method is defined on the jul function. It will be accessible by jul().functionMethod.
   this.prototype.functionMethod = function(params){};
 
 // Require the 'extend' module.
 },['extend']);
 
 // Now we can access two new methods.
-_.staticMethod({hello:'world'});
-_('.style').functionMethod('something');
+jul.staticMethod({hello:'world'});
+jul('.style').functionMethod('something');
 ```
 
 ## Static vs Function Methods
-Notice the difference in how to declare static methods vs function methods in the example above. We won't go into the prototype inheritance of **JUL** here (see {@tutorial intro} to learn more), we just need to remember that in the module constructor function, any methods added using `this.method = function(){}` will be accessible by calling `_.method()`, and any methods added using `this.prototype.method = function(){}` will be accessible by calling `_().method()`.
+Notice the difference in how to declare static methods vs function methods in the example above. We won't go into the prototype inheritance of **JUL** here (see {@tutorial intro} to learn more), we just need to remember that in the module constructor function, any methods added using `this.method = function(){}` will be accessible by calling `jul.method()`, and any methods added using `this.prototype.method = function(){}` will be accessible by calling `jul().method()`.
 
 ## Private Methods and Properties
 Since the function passed as the second parameter of the **addModule** function is a straightforward constructor function, you can make private methods and properties just as you would in any constructor function. Simply declaring them within the scope of the constructor function and _not_ adding them to the `this` object, will keep them private, but still make them accessible to exposed functions.
 
 For example:
 ```javascript
-_.addModule('foo',function(){
+jul.addModule('foo',function(){
   var privateProperty = 'Hello World';
   var privateMethod = function(){
     console.log(privateProperty);
@@ -54,13 +54,13 @@ _.addModule('foo',function(){
   }
 })
 ```
-will define a new module, **foo**, that can be called using `_.foo()`. Neither `privateProperty` or `privateMethod` are available to the outside, but calling `_.foo('bar')` will update `privateProperty` and then call `privateMethod`, so the console will log `"bar"`.
+will define a new module, **foo**, that can be called using `jul.foo()`. Neither `privateProperty` or `privateMethod` are available to the outside, but calling `jul.foo('bar')` will update `privateProperty` and then call `privateMethod`, so the console will log `"bar"`.
 
 ***However*** this is strongly advised against, as it creates hidden, internal state for your modules. Observe the following:
 ```javascript
-_.foo();      // prints "Hello World"
-_.foo('bar'); // prints "bar"
-_.foo();      // prints "bar"
+jul.foo();      // prints "Hello World"
+jul.foo('bar'); // prints "bar"
+jul.foo();      // prints "bar"
 ```
 If another module unexpectedly calls one of the functions that updates internal state, then a user of your module, expecting a specific state, may end up with a very difficult bug to track down.
 
@@ -84,7 +84,7 @@ var double = function(arr) {
 ```
 you can create a new module from the function by wrapping it in the **addModule** function like so:
 ```javascript
-_.addModule('double',function(){
+jul.addModule('double',function(){
   var double = function(arr) {
     var newArr = new Array(arr.length*2);
     for(var i=0; i<arr.length; i++) {
@@ -104,21 +104,21 @@ It is recommended that you wrap your module definition in an immediately invoked
 
 Let's say, for examples sake, that you want to add a module that depends on **jQuery**, but you are using the `jQuery` name on your site rather than `$` because of conflicts with another library, but the module uses `$` (pretty contrived right?). The solution is simply to wrap your module definition in an IIF that exposes `jQuery` as `$` to your module like so:
 ```javascript
-(function($,_){
+(function($,jul){
   'use strict';
-  _.addModule('foo',function(){
+  jul.addModule('foo',function(){
     var bar = function(str) {
       return $(str);
     }
     this.bar = bar;
   });
-})(jQuery,_ || {});
+})(jQuery,jul || {});
 ```
 
 ## Dependencies
-The **addModule** function is not a package manager, nor even a dependency manager. It is easier to define a module directly on the `_` object than to go through the process of calling `_.addModule()`. Rewriting the double example, it is perfectly legitimate to write:
+The **addModule** function is not a package manager, nor even a dependency manager. It is easier to define a module directly on the `jul` object than to go through the process of calling `jul.addModule()`. Rewriting the double example, it is perfectly legitimate to write:
 ```javascript
-_.double = function(arr) {
+jul.double = function(arr) {
   var newArr = new Array(arr.length*2);
   for(var i=0; i<arr.length; i++) {
     newArr[i*2] = arr[i];
@@ -133,7 +133,7 @@ What **addModule** does give you is quick insight into dependency _failures_. Ta
 ```none
 'each' is required for module 'addClass': 'addClass' will not be loaded.
 ```
-If the module was added using **addModule**, you get immediate feedback that a dependency is missing rather than waiting until you call `_().addClass()` in your code and getting the following error:
+If the module was added using **addModule**, you get immediate feedback that a dependency is missing rather than waiting until you call `jul().addClass()` in your code and getting the following error:
 ```none
 Uncaught TypeError: this.each is not a function
 ```

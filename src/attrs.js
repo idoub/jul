@@ -3,8 +3,8 @@ import each from './each.js';
 /**
  * Provides an object representing the attributes of the wrapped elements.
  * 
- * @memberof _
- * @alias _(o).attrs
+ * @memberof jul
+ * @alias jul(o).attrs
  * 
  * @param {string|string[]} [name] - An optional parameter defining the attribute (or attributes) you wish to get.
  * @return {object}                - An object mapping attribute names to their values.

@@ -4,11 +4,11 @@ import each from './each.js';
 /**
  * Adds a class or classes to wrapped elements
  * 
- * @memberof _
- * @alias _(o).addClass
+ * @memberof jul
+ * @alias jul(o).addClass
  * 
  * @param {string|string[]} cls - A class or array of classes that you want to add to the wrapped elements.
- * @return {_}           - The underscore object that the method was called on.
+ * @return {jul}           - The underscore object that the method was called on.
  */
 _.prototype.addClass = function (cls) {
   if (!Array.isArray(cls)) cls = [cls];

@@ -19,7 +19,7 @@
 /**
  * **JUL** is added to the global object (usually window) as `_`
  * 
- * @namespace _
+ * @namespace jul
  */
 
 /**
@@ -39,12 +39,12 @@
  * to get an arraylike object of all matching elements when a selector is
  * passed to it.
  * 
- * @memberof _
- * @alias _
+ * @memberof jul
+ * @alias jul
  * 
  * @param    o - The object to be wrapped or a selector to identify the
  * elements to be wrapped.
- * @return {_} - A new underscore object.
+ * @return {jul} - A new underscore object.
  */
 var self = {};
 self.e = [];

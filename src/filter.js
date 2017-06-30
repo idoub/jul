@@ -3,8 +3,8 @@ import _ from './jul.js';
 /**
  * Loop through every member of an arraylike object wrapped by an underscore object and return an array that matches the filter callback.
  * 
- * @memberof _
- * @alias _(o).filter
+ * @memberof jul
+ * @alias jul(o).filter
  * 
  * @param  {function} fn - The filter function. If the function returns true , then the value of the current arraylike object will be added to the new array.
  * @param  {...*} params - Any params you want passed to the filter function.

@@ -3,8 +3,8 @@ import _ from './jul.js';
 /**
  * Loop through every member of an arraylike object wrapped by an underscore object and map them to a different array.
  * 
- * @memberof _
- * @alias _(o).map
+ * @memberof jul
+ * @alias jul(o).map
  * 
  * @param  {function} cb - The mapping function. The value returned from the function will be in the new array.
  * @param  {...*} params - Any params you want passed to the mapping function.
