@@ -34,7 +34,7 @@ _.extend = function (out, o) {
  * @return {object} - The wrapped object that has been extended with additional parameters.
  */
 _.prototype.extend = function (o) {
-  var args = Array.from(arguments);
+  var args = [].slice.call(arguments);
   return this.extend(this.e, args);
 };
 

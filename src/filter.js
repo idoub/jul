@@ -19,7 +19,7 @@ import _ from './jul.js';
  *  )
  */
 _.prototype.filter = function (fn, params) {
-  var args = Array.from(arguments);
+  var args = [].slice.call(arguments);
   args.shift();
   var out = [];
   for (var i = this.e.length; i--;) {

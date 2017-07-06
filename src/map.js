@@ -19,7 +19,7 @@ import _ from './jul.js';
  *  );
  */
 _.prototype.map = function (cb, params) {
-  var args = Array.from(arguments);
+  var args = [].slice.call(arguments);
   args.shift();
   var results = [];
   for (var key in Object.keys(this.e)) {
