@@ -9,6 +9,7 @@ import extend from './extend.js';
 import filter from './filter.js';
 import hash from './hash.js';
 import map from './map.js';
+import on from './on.js';
 import pubsub from './pubsub.js';
 import ready from './ready.js';
 import addClass from './addClass.js';

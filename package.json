@@ -46,15 +46,15 @@
   },
   "homepage": "https://gitlab.com/jumpnjellyfish/jul",
   "devDependencies": {
-    "rollup": "latest",
-    "minify": "latest",
     "gzipped": "latest",
-    "nyc": "latest",
     "istanbul": "latest",
+    "jsdoc": "^3.5.4",
+    "minami": "latest",
+    "minify": "^3.0.1",
     "mocha-phantomjs": "latest",
     "mocha-phantomjs-istanbul": "latest",
+    "nyc": "^11.2.1",
     "onchange-mini": "latest",
-    "jsdoc": "latest",
-    "minami": "latest"
+    "rollup": "^0.49.3"
   }
 }

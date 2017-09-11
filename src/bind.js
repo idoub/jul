@@ -9,7 +9,6 @@
       if(typeof _(e).data().j === 'undefined') {
         console.log(e.toString() + ' does not have the binding attribute \'data-j\' and will not be bound.');
       }
-
     };
 
     this.bind = bind;

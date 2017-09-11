@@ -1,178 +1,110 @@
 (function (_) {
-  'use strict';
-  var state = new Gem();
+  var model = new Observable();
 
-  function Gem(existing) {
-    var bound = [];
+  function Observable() {
+    var parent;
+    var listeners = [];
+    var value = '';
 
-    this.addChild = function (childName) {
-      var value;
-      Object.defineProperty(this, childName, {
-        get: function () {
-          return value;
-        },
-        set: function (v) {
-          _.each(bound, function (e) {
-            updateElement(e, childName, v);
-          });
-          value = v;
-        }
-      });
-    };
-
-    this.bind = function (element) {
-      bound.push(element);
-    };
-
-    for (var prop in existing) {
-      if (existing.hasOwnProperty(prop)) {
-        this.addChild(prop);
-        this[prop] = existing[prop];
+    Object.defineProperty(this, 'value', {
+      get: function () {
+        return value;
+      },
+      set: function (newValue) {
+        value = newValue;
+        this.notify();
+        if (parent) parent.notify();
       }
-    }
+    });
 
-    this.bound = bound;
+    Object.defineProperty(this, 'addProp', {
+      value: function (name) {
+        this[name] = new Observable();
+        this[name].setParent(this);
+      }
+    });
+
+    Object.defineProperty(this, 'setParent', {
+      value: function (newParent) {
+        parent = newParent;
+      }
+    });
+
+    Object.defineProperty(this, 'subscribe', {
+      value: function (listener) {
+        listeners.push(listener);
+      }
+    });
+
+    Object.defineProperty(this, 'notify', {
+      value: function () {
+        listeners.forEach(function (listener) {
+          listener(value);
+        });
+      }
+    });
   }
 
-  var updateProp = function (e, k, v) {
-    switch (k) {
-      case 'text':
-        e.innerText = v;
-        break;
-      default:
-        e.setAttribute(k, v);
-        break;
-    }
+  var getDescendant = function (obj, ancestry) {
+    return ancestry.split('.').reduce(function (parent, child, i, arr) {
+      return parent && parent[child] || (parent.addProp(child), parent[child]);
+    }, obj);
   };
 
-  var updateElement = function (e, k, v) {
-    var props = getData(e).split(':')[1].split(',');
-    for (var i = 0; i < props.length; i++) {
-      var prop = props[i];
-      var attr = prop;
-      if (prop.indexOf('-') >= 0) {
-        var tmp = prop.split('-');
-        attr = tmp[0];
-        prop = tmp[1];
-      }
-      if (k === prop) updateProp(e, attr, v);
-    }
+  var getObservable = function (element, observable) {
+    if (!observable) observable = element.getAttribute('data-j') || '';
+    return typeof observable === 'string' ? getDescendant(model, observable) : observable;
   };
 
-  var getElementType = function (e) {
-    var type = e.nodeName;
-    if (type === 'INPUT') type = e.type.toUpperCase();
+  var bindElement = function (element) {
+    var binding = element.getAttribute('data-j').split(':'),
+      path = binding[0],
+      prop = binding[1],
+      observable = getObservable(element, path);
+    element[prop] = observable.value;
+    observable.subscribe(function () {
+      element[prop] = observable.value;
+    });
+    _(element).on('change input', function () {
+      observable.value = element.value;
+    });
+  };
+
+  var getElementType = function (element) {
+    var type = element.nodeName;
+    if (type === 'INPUT') type = element.type.toUpperCase();
     return type;
   };
 
-  var updateObj = function (obj, key, val) {
-    if (!(obj instanceof Gem)) obj = new Gem(obj);
-    if (!obj.hasOwnProperty(key)) obj.addChild(key);
-    obj[key] = val;
+  var bindAll = function () {
+    _('[data-j]').each(bindElement);
   };
 
-  var updateObject = function (evt) {
-    var segments = getData(evt.target).split(':');
-    var boundObj = findDescendant(segments[0].split('.'));
-    var type = getElementType(evt.target);
-    switch (type) {
-      case 'CHECKBOX':
-        updateObj(boundObj, 'checked', evt.target.checked);
-        break;
-      case 'RADIO':
-      case 'TEXTAREA':
-        updateObj(boundObj, 'value', evt.target.value);
-        break;
-      default:
-        console.dir(evt.target);
+  var writeModel = function (obj, mod) {
+    mod = mod || model;
+    var keys = Object.keys(obj);
+    for (var i = 0; i < keys.length; i++) {
+      var prop = keys[i];
+      if (!mod.hasOwnProperty(prop)) mod.addProp(prop);
+      if (obj[prop] !== null && typeof obj[prop] === 'object') writeModel(obj[prop], mod[prop]);
+      else mod[prop].value = obj[prop];
     }
   };
 
-  var getData = function (element) {
-    if (!(element instanceof Node)) throw new Error('Element is not recognised as a Node and cannot be bound.');
-    var data = _(element).data().j;
-    if (typeof data === 'undefined') throw new Error('Element does not have the binding attribute \'data-j\' and cannot be bound.');
-    return data.replace(/\r?\n|\r|\s/g, '');
-  };
-
-  var findDescendant = function (generations, parent) {
-    var childName = generations.shift();
-    parent = parent || state;
-    if (!(parent instanceof Gem)) parent = new Gem(parent);
-    parent[childName] = parent[childName] || new Gem();
-    if (!(parent[childName] instanceof Gem)) parent[childName] = new Gem(parent[childName]);
-    if (generations.length === 0) return parent[childName];
-    return findDescendant(generations, parent[childName]);
-  };
-
-  var bind = function (e) {
-    // If nothing has been passed, bind each element with data-j attribute
-    if (!e) {
-      this('[data-j]').each(this.bind);
-      return;
+  var readModel = function (mod) {
+    var obj = {};
+    mod = mod || model;
+    var keys = Object.keys(mod);
+    for (var i = 0; i < keys.length; i++) {
+      var prop = keys[i];
+      if (Object.keys(mod[prop]).length > 0) obj[prop] = readModel(mod[prop]);
+      else obj[prop] = mod[prop].value;
     }
-
-    // Get the data-j attribute
-    var segments = getData(e).split(':');
-    var boundObj = findDescendant(segments[0].split('.'));
-    boundObj.bind(e);
-
-    var props = segments[1].split(',');
-    for (var i = 0; i < props.length; i++) {
-      var prop = props[i];
-      var key = prop;
-      if (prop.indexOf('-') >= 0) {
-        var propKey = prop.split('-');
-        prop = propKey[0];
-        key = propKey[1];
-      }
-      updateElement(e, prop, boundObj[key]);
-    }
-
-    e.addEventListener('change', updateObject);
-    e.addEventListener('input', updateObject);
+    return obj;
   };
 
-  _.bind = bind;
-  _.state = state;
-})(_ || {});
-
-_.state.link = {
-  href: '../dist/jul.min.js',
-  text: 'JUL'
-};
-
-_.state.checkbox = {
-  id: 'mood',
-  for: 'mood',
-  text: 'Happy',
-  type: 'checkbox',
-  value: 'mood'
-};
-
-_.state.radio = {
-  type: 'radio',
-  value: 'male'
-};
-
-// _.state.items = [{
-//     id: 'item1',
-//     text: 'item1'
-//   },
-//   {
-//     id: 'item2',
-//     text: 'item2'
-//   },
-//   {
-//     id: 'item3',
-//     text: 'item3'
-//   },
-//   {
-//     id: 'item4',
-//     text: 'item4'
-//   },
-// ];
-
-_.state.buttonClick = function (evt) {
-  console.log('clicked the button', evt.target);
-};
+  _.model = model;
+  _.bindAll = bindAll;
+  _.writeModel = writeModel;
+  _.readModel = readModel;
+}(jul));
