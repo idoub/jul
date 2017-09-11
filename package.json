@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/jumpnjellyfish/jul.git"
+    "url": "git+ssh://git@gitlab.com/idoub/jul.git"
   },
   "keywords": [
     "js",
@@ -39,12 +39,12 @@
     "utility",
     "library"
   ],
-  "author": "Isaac Doub https://gitlab.com/jumpnjellyfish",
+  "author": "Isaac Doub https://gitlab.com/idoub",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/jumpnjellyfish/jul/issues"
+    "url": "https://gitlab.com/idoub/jul/issues"
   },
-  "homepage": "https://gitlab.com/jumpnjellyfish/jul",
+  "homepage": "https://gitlab.com/idoub/jul",
   "devDependencies": {
     "gzipped": "latest",
     "istanbul": "latest",
