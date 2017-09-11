@@ -1,8 +1,10 @@
 // jshint  esversion: 6
 export default {
-  entry: './src/main.js',
-  format: 'iife',
-  dest: './dist/jul.js',
-  moduleName: 'jul',
-  sourceMap: true
+  input: './src/main.js',
+  output: {
+    file: './dist/jul.js',
+    format: 'iife'
+  },
+  name: 'jul',
+  sourcemap: true
 };

@@ -17,6 +17,7 @@ import after from './after.js';
 import ajax from './ajax.js';
 import append from './append.js';
 import attrs from './attrs.js';
+import bind from './bind.js';
 import data from './data.js';
 // Don't change below this line
 
