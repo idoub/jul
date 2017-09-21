@@ -2,14 +2,20 @@
 <html>
 
 <head>
-  <title>JS -&gt; HTML</title>
+  <title>-&gt;&lt;-</title>
   <script src="../dist/jul.js"></script>
-  <script src="./bind.js"></script>
 </head>
 
 <body>
   <input id="foo" type="text" data-j="foo:value" />
-  <span id="bar" data-j="foo:innerText"></span>
+  <input id="bar" type="text" data-j="foo:value" />
+  <span data-j="foo:innerText"></span>
+  <ul id="loop" data-j-loop="bars:bar">
+    <li class="bash">
+      <span data-j="bar.first:innerText"></span>
+      <span data-j="bar.last:innerText"></span>
+    </li>
+  </ul>
 </body>
 
 </html>
