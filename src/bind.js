@@ -84,16 +84,16 @@ function Observable() {
   });
 }
 
-var getDescendant = function (obj, ancestry) {
+var getDescendant = function (context, ancestry) {
   return ancestry.split('.').reduce(function (parent, child, i, arr) {
     return parent && parent[child] || (parent.addProp(child), parent[child]);
-  }, obj);
+  }, context);
 };
 
-var getObservable = function (element, observable, obj) {
-  obj = obj || model;
+var getObservable = function (element, observable, context) {
+  context = context || model;
   if (!observable) observable = element.getAttribute('data-j') || '';
-  return typeof observable === 'string' ? getDescendant(obj, observable) : observable;
+  return typeof observable === 'string' ? getDescendant(context, observable) : observable;
 };
 
 var getElementType = function (element) {
@@ -102,38 +102,42 @@ var getElementType = function (element) {
   return type;
 };
 
-var bindLoop = function (element, obj) {
-  // var binding = element.getAttribute('data-j-loop').split(':'),
-  //   path = binding[0],
-  //   prop = binding[1],
-  //   observable = getObservable(element, path, obj),
-  //   i = 0;
+var bindLoop = function (element, context) {
+  if (element.children.length > 1) {
+    console.log('Cannot bind multiple children within loop.');
+    return;
+  }
 
-  // var inner = document.createDocumentFragment();
-  // var children = element.childNodes;
-  // for (i = 0; i < children.length; i++) {
-  //   inner.appendChild(children[i].cloneNode(true));
-  // }
-  // element.innerHTML = '';
+  var binding = element.getAttribute('data-j-loop').split(':'),
+    path = binding[0],
+    prop = binding[1],
+    observable = getObservable(element, path, context),
+    inner = element.inner || document.createDocumentFragment(),
+    i = 0;
 
-  // observable.subscribe(function () {
-  //   for (i = 0; i < observable.value.length; i++) {
-  //     var newParentObject = new Observable();
-  //     newParentObject.addProp(prop);
-  //     newParentObject[prop].write(observable.value[i]);
-  //     var newElement = inner.cloneNode(true);
-  //     element.appendChild(newElement);
-  //     bindElement(element.lastElementChild, newParentObject);
-  //   }
-  // });
-  // element.setAttribute('bound', true);
+  if (inner.children.length === 0) {
+    inner.appendChild(element.children[0].cloneNode(true));
+  }
+  element.innerHTML = '';
+
+  observable.subscribe(function () {
+    element.innerHTML = '';
+    for (var i = 0; i < observable.value.length; i++) {
+      var context = new Observable();
+      context.addProp(prop);
+      context[prop].write(observable.value[i]);
+      element.appendChild(inner.cloneNode(true));
+      bindAll(element.lastElementChild, context);
+    }
+  });
+  element.setAttribute('bound', true);
 };
 
-var bindData = function (element, obj) {
+var bindData = function (element, context) {
   var binding = element.getAttribute('data-j').split(':'),
     path = binding[0],
     prop = binding[1],
-    observable = getObservable(element, path, obj);
+    observable = getObservable(element, path, context);
   element[prop] = observable.value;
   observable.subscribe(function () {
     element[prop] = observable.value;
@@ -144,18 +148,18 @@ var bindData = function (element, obj) {
   element.setAttribute('bound', true);
 };
 
-var bindElement = function (element, obj) {
-  // if (element.getAttribute('data-j-loop')) bindLoop(element, obj);
-  if (element.getAttribute('data-j')) bindData(element, obj);
+var bindElement = function (element, context) {
+  if (element.getAttribute('data-j-loop') && !element.getAttribute('bound')) bindLoop(element, obj);
+  if (element.getAttribute('data-j') && !element.getAttribute('bound')) bindData(element, context);
 };
 
-var bindAll = _.bindAll = function (parent) {
+var bindAll = _.bindAll = function (parent, context) {
   parent = parent || document;
-  // _(parent).find('[data-j-loop]:not([bound])').each(function (e) {
-  //   bindLoop(e);
-  // });
+  _(parent).find('[data-j-loop]:not([bound])').each(function (e) {
+    bindLoop(e, context);
+  });
   _(parent).find('[data-j]:not([bound])').each(function (e) {
-    bindData(e);
+    bindData(e, context);
   });
 };
 
