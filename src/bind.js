@@ -2,6 +2,7 @@ import _ from './jul.js';
 import each from './each.js';
 import on from './on.js';
 import ready from './ready.js';
+import find from './find.js';
 
 var model = _.model = new Observable();
 
@@ -102,29 +103,30 @@ var getElementType = function (element) {
 };
 
 var bindLoop = function (element, obj) {
-  var binding = element.getAttribute('data-j-loop').split(':'),
-    path = binding[0],
-    prop = binding[1],
-    observable = getObservable(element, path, obj),
-    i = 0;
+  // var binding = element.getAttribute('data-j-loop').split(':'),
+  //   path = binding[0],
+  //   prop = binding[1],
+  //   observable = getObservable(element, path, obj),
+  //   i = 0;
 
-  var inner = document.createDocumentFragment();
-  var children = element.childNodes;
-  for (i = 0; i < children.length; i++) {
-    inner.appendChild(children[i].cloneNode(true));
-  }
-  element.innerHTML = '';
+  // var inner = document.createDocumentFragment();
+  // var children = element.childNodes;
+  // for (i = 0; i < children.length; i++) {
+  //   inner.appendChild(children[i].cloneNode(true));
+  // }
+  // element.innerHTML = '';
 
-  observable.subscribe(function () {
-    for (i = 0; i < observable.value.length; i++) {
-      var newParentObject = new Observable();
-      newParentObject.addProp(prop);
-      newParentObject[prop].write(observable.value[i]);
-      var newElement = inner.cloneNode(true);
-      element.appendChild(newElement);
-      bindElement(element.lastElementChild, newParentObject);
-    }
-  });
+  // observable.subscribe(function () {
+  //   for (i = 0; i < observable.value.length; i++) {
+  //     var newParentObject = new Observable();
+  //     newParentObject.addProp(prop);
+  //     newParentObject[prop].write(observable.value[i]);
+  //     var newElement = inner.cloneNode(true);
+  //     element.appendChild(newElement);
+  //     bindElement(element.lastElementChild, newParentObject);
+  //   }
+  // });
+  // element.setAttribute('bound', true);
 };
 
 var bindData = function (element, obj) {
@@ -139,28 +141,20 @@ var bindData = function (element, obj) {
   _(element).on('change input', function () {
     observable.value = element.value;
   });
+  element.setAttribute('bound', true);
 };
 
 var bindElement = function (element, obj) {
-  if (element.getAttribute('data-j-loop')) bindLoop(element, obj);
+  // if (element.getAttribute('data-j-loop')) bindLoop(element, obj);
   if (element.getAttribute('data-j')) bindData(element, obj);
 };
 
 var bindAll = _.bindAll = function (parent) {
-  // parent = parent || document;
-  // var i = 0;
-  // var loopElements = parent.querySelectorAll('[data-j-loop]';
-  // for(i = 0; i < loopElements.length; i++) {
-  //   bindLoop(loopElements[i]);
-  // }
-  // var dataElements = parent.querySelectorAll('[data-j]');
-  // for(i = 0; i < dataElements.length; i++) {
-  //   bindData(dataElements[i]);
-  // }
-  _('[data-j-loop]').each(function (e) {
-    bindLoop(e);
-  });
-  _('[data-j]').each(function (e) {
+  parent = parent || document;
+  // _(parent).find('[data-j-loop]:not([bound])').each(function (e) {
+  //   bindLoop(e);
+  // });
+  _(parent).find('[data-j]:not([bound])').each(function (e) {
     bindData(e);
   });
 };
@@ -175,6 +169,8 @@ var readModel = _.readModel = function (mod) {
   return mod.read();
 };
 
-_.ready(bindAll);
+_.ready(function (evt) {
+  bindAll(document);
+});
 
 export default _;

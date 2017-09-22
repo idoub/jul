@@ -1,14 +1,14 @@
 import _ from './jul.js';
 
 /**
- * Loop through every member wrapped by an underscore object and run a function on each.
+ * Loop through every member wrapped by an jul and run a function on each.
  * 
  * @memberof jul
  * @alias jul(o).each
  * 
  * @param  {function} cb - The callback you want run on each member.
  * @param  {...*} params - Any params you want passed to the callback.
- * @return {jul}           - The underscore object that the method was called on.
+ * @return {jul}           - The jul that the method was called on.
  * 
  * @example
  *  _('.hidden').each(function(element,index,array,newClass,color){

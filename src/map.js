@@ -1,7 +1,7 @@
 import _ from './jul.js';
 
 /**
- * Loop through every member of an arraylike object wrapped by an underscore object and map them to a different array.
+ * Loop through every member of an arraylike object wrapped by an jul and map them to a different array.
  * 
  * @memberof jul
  * @alias jul(o).map

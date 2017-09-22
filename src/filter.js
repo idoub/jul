@@ -1,7 +1,7 @@
 import _ from './jul.js';
 
 /**
- * Loop through every member of an arraylike object wrapped by an underscore object and return an array that matches the filter callback.
+ * Loop through every member of an arraylike object wrapped by an jul and return an array that matches the filter callback.
  * 
  * @memberof jul
  * @alias jul(o).filter

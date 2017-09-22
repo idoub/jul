@@ -29,7 +29,7 @@
  * which can be used to extend the base `_` object in a safe way.
  * 
  * Calling underscore as a function internally creates a new object with
- * the underscore object as it's prototype. It also creates a property `_.e`
+ * the jul as it's prototype. It also creates a property `_.e`
  * which is a reference to either:
  * * a list of elements located by the selector passed in as a parameter,
  * * the object passed in as a parameter if it is an array,</li>
@@ -44,7 +44,7 @@
  * 
  * @param    o - The object to be wrapped or a selector to identify the
  * elements to be wrapped.
- * @return {jul} - A new underscore object.
+ * @return {jul} - A new jul.
  */
 var self = {};
 self.e = [];

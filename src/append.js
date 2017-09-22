@@ -8,7 +8,7 @@ import each from './each.js';
  * @alias jul(o).append
  * 
  * @param {node|string} content - The content you want appended to each of the currently wrapped elements.
- * @return {jul}                  - The underscore object that the method was called on.
+ * @return {jul}                  - The jul that the method was called on.
  */
 _.prototype.append = function (content) {
   var frag = document.createDocumentFragment();

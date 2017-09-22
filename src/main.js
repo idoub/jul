@@ -7,6 +7,7 @@ import each from './each.js';
 import exists from './exists.js';
 import extend from './extend.js';
 import filter from './filter.js';
+import find from './find.js';
 import hash from './hash.js';
 import map from './map.js';
 import on from './on.js';
