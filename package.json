@@ -48,7 +48,7 @@
   "devDependencies": {
     "gzipped": "latest",
     "istanbul": "latest",
-    "jsdoc": "^3.5.4",
+    "jsdoc": "^3.5.5",
     "minami": "latest",
     "minify": "^3.0.1",
     "mocha-phantomjs": "latest",
