@@ -152,8 +152,8 @@ var bindEvent = function (element, context) {
     cb = console.log;
 
   element.addEventListener(evt, function (e) {
-    if (events.hasOwnProperty(name)) cb = events[name];
     e.preventDefault();
+    if (events.hasOwnProperty(name)) cb = events[name];
     cb(observable.value || e);
   });
 };
