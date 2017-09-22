@@ -7,7 +7,7 @@ import _ from './jul.js';
  * @alias jul(o).add
  * 
  * @param {object|string} obj - The object you want wrapped and concatenated or a string representing a css selector.
- * @return {jul}                - A new jul wrapping both the original object and the added object.
+ * @return {jul}              - A new jul wrapping both the original object and the added object.
  */
 _.prototype.add = function (obj) {
   var newObj = _(obj);

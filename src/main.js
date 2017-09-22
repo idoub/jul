@@ -1,6 +1,5 @@
 import _ from './jul.js';
 
-// Remove modules that you don't need from this list
 import add from './add.js';
 import create from './create.js';
 import each from './each.js';
@@ -20,6 +19,7 @@ import append from './append.js';
 import attrs from './attrs.js';
 import data from './data.js';
 import bind from './bind.js';
+// Remove modules that you don't need from this list
 // Don't change below this line
 
 export default _;

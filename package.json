@@ -12,7 +12,7 @@
   "scripts": {
     "postinstall": "npm run build --silent && npm run deploy --silent",
     "build": "npm run build:script --silent",
-    "build:script": "npm run build:concat --silent && npm run build:minify --silent && npm run build:size --silent && npm run test:script --silent",
+    "build:script": "npm run build:concat --silent && npm run build:minify --silent && npm run build:size --silent && npm run test:script --silent && npm run deploy:script --silent",
     "build:concat": "rollup -c",
     "build:minify": "minify $npm_package_config_jul > $npm_package_config_min",
     "build:size": "echo ================================= Size Report ================================== && gzipped $npm_package_config_min && echo '================================================================================\n'",
@@ -25,7 +25,7 @@
     "deploy": "npm run deploy:script --silent",
     "deploy:script": "jsdoc -c ./jsdoc.json -R ./README.md $npm_package_config_jul",
     "clean": "git reset --hard && git clean -qdfx -e .vscode",
-    "watch": "onchange-mini ./src/* ./test/* ./tutorials/* -- npm run build:concat --silent && npm run build:minify --silent",
+    "watch": "onchange-mini ./src/* ./test/* ./tutorials/* -- npm run build:concat --silent && npm run build:minify --silent && npm run deploy:script --silent",
     "watch:src": "onchange-mini ./src/* -- npm run build --silent",
     "watch:docs": "onchange-mini ./src/* ./tutorials/* -- npm run deploy --silent"
   },

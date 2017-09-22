@@ -16,11 +16,8 @@
  * 
  */
 
-/**
- * **JUL** is added to the global object (usually window) as `_`
- * 
- * @namespace jul
- */
+var self = {};
+self.e = [];
 
 /**
  * This is the core underscore module required for everything else.
@@ -39,16 +36,10 @@
  * to get an arraylike object of all matching elements when a selector is
  * passed to it.
  * 
- * @memberof jul
- * @alias jul
- * 
  * @param    o - The object to be wrapped or a selector to identify the
  * elements to be wrapped.
  * @return {jul} - A new jul.
  */
-var self = {};
-self.e = [];
-
 var _ = function (o) {
   self.o = o = o || [];
   if (o instanceof _) return o;

@@ -1,93 +1,12 @@
 import _ from './jul.js';
+import Gem from './Gem.js';
 import each from './each.js';
 import on from './on.js';
 import ready from './ready.js';
 import find from './find.js';
 
-var model = new Observable();
+var model = new Gem();
 var events = {};
-
-function Observable(obj) {
-  var parent;
-  var listeners = [];
-  var value = '';
-
-  var isPropWritable = function (prop) {
-    return prop && typeof prop === 'object' && !Array.isArray(prop);
-  };
-
-  Object.defineProperty(this, 'value', {
-    get: function () {
-      return value;
-    },
-    set: function (newValue) {
-      value = newValue;
-      this.notify();
-      if (parent) parent.notify();
-    }
-  });
-
-  Object.defineProperty(this, 'addProp', {
-    value: function (name) {
-      this[name] = new Observable();
-      this[name].setParent(this);
-    }
-  });
-
-  Object.defineProperty(this, 'setParent', {
-    value: function (newParent) {
-      parent = newParent;
-    }
-  });
-
-  Object.defineProperty(this, 'subscribe', {
-    value: function (listener) {
-      listeners.push(listener);
-    }
-  });
-
-  Object.defineProperty(this, 'notify', {
-    value: function () {
-      listeners.forEach(function (listener) {
-        listener(value);
-      });
-    }
-  });
-
-  Object.defineProperty(this, 'write', {
-    value: function (obj) {
-      var keys = Object.keys(obj);
-      for (var i = 0; i < keys.length; i++) {
-        if (!this.hasOwnProperty(keys[i])) this.addProp(keys[i]);
-        if (isPropWritable(obj[keys[i]])) this[keys[i]].write(obj[keys[i]]);
-        else this[keys[i]].value = obj[keys[i]];
-      }
-    }
-  });
-
-  Object.defineProperty(this, 'read', {
-    value: function () {
-      var obj = {};
-      var keys = Object.keys(this);
-      for (var i = 0; i < keys.length; i++) {
-        if (typeof this[keys[i]] === 'string') return this[keys[i]];
-        if (Object.keys(this[keys[i]]).length > 0) obj[keys[i]] = this[keys[i]].read();
-        else obj[keys[i]] = this[keys[i]].value;
-      }
-      return obj;
-    }
-  });
-
-  if (obj) this.write(obj);
-}
-
-var writeModel = _.writeModel = function (obj, mod) {
-  (mod || model).write(obj);
-};
-
-var readModel = _.readModel = function (mod) {
-  return (mod || model).read();
-};
 
 var getDescendant = function (context, ancestry) {
   return ancestry.split('.').reduce(function (parent, child, i, arr) {
@@ -95,10 +14,10 @@ var getDescendant = function (context, ancestry) {
   }, context);
 };
 
-var getObservable = function (element, observable, context) {
+var getGem = function (element, gem, context) {
   context = context || model;
-  if (!observable) observable = element.getAttribute('data-j') || '';
-  return typeof observable === 'string' ? getDescendant(context, observable) : observable;
+  if (!gem) gem = element.getAttribute('data-j') || '';
+  return typeof gem === 'string' ? getDescendant(context, gem) : gem;
 };
 
 var getElementType = function (element) {
@@ -111,18 +30,18 @@ var bindLoop = function (element, context) {
   if (element.children.length > 1) return console.log('Cannot bind multiple children within loop.');
 
   var path = element.getAttribute('data-j-loop'),
-    observable = getObservable(element, path, context),
+    gem = getGem(element, path, context),
     inner = element.inner || document.createDocumentFragment(),
     i = 0;
 
   if (inner.children.length === 0) inner.appendChild(element.children[0].cloneNode(true));
   element.innerHTML = '';
 
-  observable.subscribe(function () {
+  gem.subscribe(function () {
     element.innerHTML = '';
-    for (var i = 0; i < observable.value.length; i++) {
+    for (var i = 0; i < gem.value.length; i++) {
       element.appendChild(inner.cloneNode(true));
-      bindAll(element.lastElementChild, new Observable(observable.value[i]));
+      bindAll(element.lastElementChild, new Gem(gem.value[i]));
     }
   });
   element.setAttribute('bound', true);
@@ -132,16 +51,16 @@ var bindData = function (element, context) {
   var binding = element.getAttribute('data-j').split(':'),
     path = binding[0],
     prop = binding[1],
-    observable = getObservable(element, path, context);
+    gem = getGem(element, path, context);
 
-  element[prop] = observable.value;
+  element[prop] = gem.value;
 
-  observable.subscribe(function () {
-    element[prop] = observable.value;
+  gem.subscribe(function () {
+    element[prop] = gem.value;
   });
 
   _(element).on('change input', function () {
-    observable.value = element.value;
+    gem.value = element.value;
   });
 
   element.setAttribute('bound', true);
@@ -152,13 +71,13 @@ var bindEvent = function (element, context) {
     evt = binding[0],
     name = binding[1],
     path = binding.length > 2 ? binding[2] : undefined,
-    observable = path ? getObservable(element, path, context) : undefined,
+    gem = path ? getGem(element, path, context) : undefined,
     cb = console.log;
 
   _(element).on(evt, function (e) {
     e.preventDefault();
     if (events.hasOwnProperty(name)) cb = events[name];
-    cb(observable.value || e);
+    cb(gem.value || e);
   });
 };
 
@@ -168,6 +87,15 @@ var bindElement = function (element, context) {
   if (element.getAttribute('data-j') && !element.getAttribute('bound')) bindData(element, context);
 };
 
+/**
+ * Bind all html elements within an element that have a data-j* attribute.
+ * 
+ * @memberof jul
+ * @alias jul(o).bindAll
+ * 
+ * @param {Node}   [parent=document] - The parent within which you want to bind elements. Defaults to document.
+ * @param {Object} [context]         - The object you want to use to bind to the element.
+ */
 var bindAll = _.bindAll = function (parent, context) {
   parent = parent || document;
   _(parent).find('[data-j-event]:not([bound])').each(function (e) {
@@ -181,6 +109,18 @@ var bindAll = _.bindAll = function (parent, context) {
   });
 };
 
+/**
+ * Bind a function as an event on the page.
+ * 
+ * If there is an element on the page with a binding that has the same name as
+ * the name you are giving to the function, then the provided function will be
+ * called when the event is triggered.
+ * 
+ * @param {string}   name - The name of the function. If it is the same as a bound
+ * event name on the page, then the next parameter will be called when the event fires.
+ * @param {Function} cb   - The function you wish to use when a bound event with
+ * the same name fires.
+ */
 _.bindEvent = function (name, cb) {
   events[name] = cb;
 };
@@ -188,5 +128,30 @@ _.bindEvent = function (name, cb) {
 _.ready(function (evt) {
   bindAll(document);
 });
+
+/**
+ * Write a javascript object to a model. Model defaults to jul's internal model.
+ * 
+ * @memberof jul
+ * @alias jul(o).writeModel
+ * 
+ * @param {Object} obj   - 
+ * @param {Gem}    [mod] - 
+ */
+var writeModel = _.writeModel = function (obj, mod) {
+  (mod || model).write(obj);
+};
+
+/**
+ * Read a model as a standard javascript object. Model defaults to jul's internal model.
+ * 
+ * @memberof jul
+ * @alias jul(o).readModel
+ * 
+ * @param {Gem}    [mod] - 
+ */
+var readModel = _.readModel = function (mod) {
+  return (mod || model).read();
+};
 
 export default _;
