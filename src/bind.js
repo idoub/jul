@@ -4,15 +4,17 @@ import on from './on.js';
 import ready from './ready.js';
 import find from './find.js';
 
-var model = _.model = new Observable();
-
-var eventNames = ["DOMAttrModified", "DOMAttributeNameChanged", "DOMCharacterDataModified", "DOMContentLoaded", "DOMElementNameChanged", "DOMNodeInserted", "DOMNodeInsertedIntoDocument", "DOMNodeRemoved", "DOMNodeRemovedFromDocument", "DOMSubtreeModified", "abort", "abort", "abort", "abort", "abort", "abort", "afterprint", "afterprint", "animationend", "animationend", "animationiteration", "animationiteration", "animationstart", "animationstart", "appinstalled", "audioend", "audioprocess", "audioprocess", "audiostart", "auxclick", "beforeprint", "beforeprint", "beforeunload", "beforeunload", "beginEvent", "blocked", "blur", "blur", "blur", "boundary", "cached", "cached", "canplay", "canplay", "canplaythrough", "canplaythrough", "change", "chargingchange", "chargingtimechange", "checking", "click", "click", "click", "close", "close", "complete", "complete", "complete", "compositionend", "compositionend", "compositionstart", "compositionstart", "compositionupdate", "compositionupdate", "contextmenu", "contextmenu", "copy", "copy", "cut", "cut", "dblclick", "dblclick", "devicechange", "devicelight", "devicemotion", "deviceorientation", "deviceproximity", "dischargingtimechange", "downloading", "drag", "drag", "dragend", "dragend", "dragenter", "dragenter", "dragleave", "dragleave", "dragover", "dragover", "dragstart", "dragstart", "drop", "drop", "durationchange", "durationchange", "emptied", "emptied", "end", "end", "endEvent", "ended", "ended", "ended", "error", "error", "error", "error", "error", "error", "error", "error", "error", "error", "error", "focus", "focus", "focus", "focusin", "focusin", "focusout", "focusout", "fullscreenchange", "fullscreenchange", "fullscreenerror", "fullscreenerror", "gamepadconnected", "gamepaddisconnected", "gotpointercapture", "hashchange", "input", "invalid", "keydown", "keydown", "keypress", "keypress", "keyup", "keyup", "languagechange", "levelchange", "load", "load", "load", "load", "loadeddata", "loadeddata", "loadedmetadata", "loadedmetadata", "loadend", "loadend", "loadstart", "loadstart", "lostpointercapture", "mark", "message", "message", "message", "message", "message", "message", "messageerror", "mousedown", "mousedown", "mouseenter", "mouseenter", "mouseleave", "mouseleave", "mousemove", "mousemove", "mouseout", "mouseout", "mouseover", "mouseover", "mouseup", "mouseup", "nomatch", "notificationclick", "noupdate", "obsolete", "offline", "offline", "online", "online", "open", "open", "open", "orientationchange", "pagehide", "pagehide", "pageshow", "pageshow", "paste", "paste", "pause", "pause", "pause", "play", "play", "playing", "playing", "pointercancel", "pointerdown", "pointerenter", "pointerleave", "pointerlockchange", "pointerlockchange", "pointerlockerror", "pointerlockerror", "pointermove", "pointerout", "pointerover", "pointerup", "popstate", "popstate", "progress", "progress", "progress", "push", "pushsubscriptionchange", "ratechange", "ratechange", "readystatechange", "repeatEvent", "requestprogress", "reset", "reset", "resize", "resize", "resourcetimingbufferfull", "responseprogress", "result", "resume", "scroll", "scroll", "seeked", "seeked", "seeking", "seeking", "select", "select", "selectionchange", "selectstart", "show", "stalled", "statechange", "submit", "suspend", "timeout", "timeupdate", "transitioncancel", "transitionend", "transitionrun", "transitionstart", "unload", "volumechange", "vrdisplayactivate", "vrdisplayblur", "vrdisplayconnect", "vrdisplaydeactivate", "vrdisplaydisconnect", "vrdisplayfocus", "vrdisplaypresentchange", "waiting", "wheel"];
-var events = _.events = {};
+var model = new Observable();
+var events = {};
 
 function Observable(obj) {
   var parent;
   var listeners = [];
   var value = '';
+
+  var isPropWritable = function (prop) {
+    return prop && typeof prop === 'object' && !Array.isArray(prop);
+  };
 
   Object.defineProperty(this, 'value', {
     get: function () {
@@ -56,15 +58,9 @@ function Observable(obj) {
     value: function (obj) {
       var keys = Object.keys(obj);
       for (var i = 0; i < keys.length; i++) {
-        var prop = keys[i];
-        if (!this.hasOwnProperty(prop)) this.addProp(prop);
-        if (obj[prop !== null &&
-            typeof obj[prop] === 'object' &&
-            !Array.isArray(obj[prop])]) {
-          this[prop].write(obj[prop]);
-        } else {
-          this[prop].value = obj[prop];
-        }
+        if (!this.hasOwnProperty(keys[i])) this.addProp(keys[i]);
+        if (isPropWritable(obj[keys[i]])) this[keys[i]].write(obj[keys[i]]);
+        else this[keys[i]].value = obj[keys[i]];
       }
     }
   });
@@ -74,13 +70,9 @@ function Observable(obj) {
       var obj = {};
       var keys = Object.keys(this);
       for (var i = 0; i < keys.length; i++) {
-        var prop = keys[i];
-        if (typeof this[prop] === 'string') return this[prop];
-        if (Object.keys(this[prop]).length > 0) {
-          obj[prop] = this[prop].read();
-        } else {
-          obj[prop] = this[prop].value;
-        }
+        if (typeof this[keys[i]] === 'string') return this[keys[i]];
+        if (Object.keys(this[keys[i]]).length > 0) obj[keys[i]] = this[keys[i]].read();
+        else obj[keys[i]] = this[keys[i]].value;
       }
       return obj;
     }
@@ -90,13 +82,11 @@ function Observable(obj) {
 }
 
 var writeModel = _.writeModel = function (obj, mod) {
-  mod = mod || model;
-  mod.write(obj);
+  (mod || model).write(obj);
 };
 
 var readModel = _.readModel = function (mod) {
-  mod = mod || model;
-  return mod.read();
+  return (mod || model).read();
 };
 
 var getDescendant = function (context, ancestry) {
@@ -196,5 +186,3 @@ _.ready(function (evt) {
 });
 
 export default _;
-
-//{foo: 'Hello World', bars: [{first: 'Isaac', last: 'Doub'},{first: 'John', last: 'Smith'},{first: 'Peter', last: 'Parker'}]}
