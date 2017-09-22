@@ -133,13 +133,17 @@ var bindData = function (element, context) {
     path = binding[0],
     prop = binding[1],
     observable = getObservable(element, path, context);
+
   element[prop] = observable.value;
+
   observable.subscribe(function () {
     element[prop] = observable.value;
   });
+
   _(element).on('change input', function () {
     observable.value = element.value;
   });
+
   element.setAttribute('bound', true);
 };
 
@@ -151,7 +155,7 @@ var bindEvent = function (element, context) {
     observable = path ? getObservable(element, path, context) : undefined,
     cb = console.log;
 
-  element.addEventListener(evt, function (e) {
+  _(element).on(evt, function (e) {
     e.preventDefault();
     if (events.hasOwnProperty(name)) cb = events[name];
     cb(observable.value || e);
