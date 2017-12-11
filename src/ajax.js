@@ -14,9 +14,6 @@ var defaultOpts = {
 /**
  * A simple but flexible ajax call
  * 
- * @memberof jul
- * @alias jul.ajax
- * 
  * @property {object}   opts                           - All the options to make the ajax call.
  * @property {string}   opts.method                    - The method of the call. E.g. 'GET','PUT','POST',etc.
  * @property {string}   opts.url                       - The url you want to call.

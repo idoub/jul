@@ -5,7 +5,9 @@
  * page. It has several properties that help it to maintain a tree structure,
  * convert to and from a normal object, and notify listeners when the object
  * changes.
+ * 
  * @constructor
+ * @alias Gem
  */
 function Gem(obj) {
   var parent;

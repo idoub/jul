@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Mocha Tests</title>
-    <link href="http://rawgit.com/mochajs/mocha/master/mocha.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mocha/4.0.1/mocha.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -12,10 +12,11 @@
     <div id="div2" class="div2class red"></div>
 
     <div id="mocha"></div>
-    <script src="http://rawgit.com/mochajs/mocha/master/mocha.js"></script>
-    <script src="http://rawgit.com/chaijs/chai/master/chai.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/4.0.1/mocha.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.1.2/chai.min.js"></script>
     <script>
-        mocha.setup('bdd')
+        initMochaPhantomJS();
+        mocha.setup('bdd');
     </script>
     <script src="../dist/jul.js"></script>
     <script src="../dist/jul.instrumented.js"></script>

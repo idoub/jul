@@ -4,9 +4,6 @@ import each from './each.js';
 /**
  * Get a new jul from a query of elements within a current jul.
  * 
- * @memberof jul
- * @alias jul(o).find
- * 
  * @param {string} query - The query string you want to use to search within the current jul.
  * @return {jul}         - A new jul if found, otherwise the current jul.
  */

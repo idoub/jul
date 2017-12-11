@@ -39,6 +39,9 @@ self.e = [];
  * @param    o - The object to be wrapped or a selector to identify the
  * elements to be wrapped.
  * @return {jul} - A new jul.
+ * 
+ * @constructor
+ * @alias jul
  */
 var _ = function (o) {
   self.o = o = o || [];

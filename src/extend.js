@@ -3,9 +3,6 @@ import _ from './jul.js';
 /**
  * A deep extend method.
  * 
- * @memberof jul
- * @alias jul.extend
- * 
  * @param  {object}    out - The function that you want to extend.
  * @param  {...object} o   - Any objects you want to grab properties from and add to the extended object.
  * @return {object}        - The first parameter with added properties.
@@ -26,9 +23,6 @@ _.extend = function (out, o) {
 
 /**
  * Deep extend an already wrapped object.
- * 
- * @memberof jul
- * @alias jul(o).extend
  * 
  * @param  {...*} o - Any objects you want to grab properties from and add to the currently wrapped object.
  * @return {object} - The wrapped object that has been extended with additional parameters.

@@ -12,9 +12,6 @@ var topics = {};
  * 
  * If the topic has not been created (there are no subscribers) then nothing will happen.
  * 
- * @memberof jul
- * @alias jul.publish
- * 
  * @param {string} topic - The name of the topic you wish to publish to.
  * @param {object} data  - Any data you want passed to listeners of the
  * topic.
@@ -30,9 +27,6 @@ _.publish = function (topic, data) {
  * Make a listener to an topic.
  * 
  * If the topci does not exist, then it will be created and the listener added.
- * 
- * @memberof jul
- * @alias jul.subscribe
  * 
  * @param  {string}   topic    - The name of the topic you wish to subscribe to/create.
  * @param  {function} listener - A function you want called when something publishes to the topic.

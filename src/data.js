@@ -4,9 +4,6 @@ import each from './each.js';
 /**
  * Provides an object representing the data attributes of the wrapped elements.
  * 
- * @memberof jul
- * @alias jul(o).data
- * 
  * @return {object}                - An object mapping attribute names to their values.
  */
 _.prototype.data = function () {

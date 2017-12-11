@@ -12,6 +12,7 @@ import map from './map.js';
 import on from './on.js';
 import pubsub from './pubsub.js';
 import ready from './ready.js';
+import route from './route.js';
 import addClass from './addClass.js';
 import after from './after.js';
 import ajax from './ajax.js';

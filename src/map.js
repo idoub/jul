@@ -3,9 +3,6 @@ import _ from './jul.js';
 /**
  * Loop through every member of an arraylike object wrapped by an jul and map them to a different array.
  * 
- * @memberof jul
- * @alias jul(o).map
- * 
  * @param  {function} cb - The mapping function. The value returned from the function will be in the new array.
  * @param  {...*} params - Any params you want passed to the mapping function.
  * @return {array}       - The new array with values mapped from the current wrapped arraylike object.

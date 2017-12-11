@@ -4,6 +4,7 @@ import each from './each.js';
 import on from './on.js';
 import ready from './ready.js';
 import find from './find.js';
+import addClass from './addClass.js';
 
 var model = new Gem();
 var events = {};
@@ -56,7 +57,8 @@ var bindData = function (element, context) {
   element[prop] = gem.value;
 
   gem.subscribe(function () {
-    element[prop] = gem.value;
+    if (prop === 'class') _(element).addClass(gem.value);
+    else element[prop] = gem.value;
   });
 
   _(element).on('change input', function () {
@@ -89,10 +91,7 @@ var bindElement = function (element, context) {
 
 /**
  * Bind all html elements within an element that have a data-j* attribute.
- * 
- * @memberof jul
- * @alias jul(o).bindAll
- * 
+ *  * 
  * @param {Node}   [parent=document] - The parent within which you want to bind elements. Defaults to document.
  * @param {Object} [context]         - The object you want to use to bind to the element.
  */
@@ -132,9 +131,6 @@ _.ready(function (evt) {
 /**
  * Write a javascript object to a model. Model defaults to jul's internal model.
  * 
- * @memberof jul
- * @alias jul(o).writeModel
- * 
  * @param {Object} obj   - 
  * @param {Gem}    [mod] - 
  */
@@ -144,9 +140,6 @@ var writeModel = _.writeModel = function (obj, mod) {
 
 /**
  * Read a model as a standard javascript object. Model defaults to jul's internal model.
- * 
- * @memberof jul
- * @alias jul(o).readModel
  * 
  * @param {Gem}    [mod] - 
  */

@@ -19,7 +19,7 @@
     "test": "npm run testscript --silent",
     "test:script": "npm run test:instrument --silent && npm run test:mocha --silent && npm run test:report --silent && npm run test:cleanup --silent",
     "test:instrument": "istanbul instrument $npm_package_config_jul > $npm_package_config_inst",
-    "test:mocha": "echo ================================== Run Tests =================================== && mocha-phantomjs ./test/index.html -R progress -k mocha-phantomjs-istanbul && echo ================================================================================",
+    "test:mocha": "echo ================================== Run Tests =================================== && mocha-phantomjs ./test/index.html -R progress -k mocha-phantomjs-istanbul --ssl-protocol=any && echo ================================================================================",
     "test:report": "istanbul report text-summary html",
     "test:cleanup": "rm $npm_package_config_inst",
     "deploy": "npm run deploy:script --silent",

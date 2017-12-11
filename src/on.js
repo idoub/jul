@@ -4,9 +4,6 @@ import each from './each.js';
 /**
  * Set a handler as a callback for one or more events on contained elements.
  * 
- * @memberof jul
- * @alias jul(o).on
- * 
  * @param {string} events - A space delimited list of events you want the handler to be used for.
  * @return {jul}          - The jul containing the elements the handler has been added to.
  */

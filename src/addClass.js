@@ -4,9 +4,6 @@ import each from './each.js';
 /**
  * Adds a class or classes to wrapped elements
  * 
- * @memberof jul
- * @alias jul(o).addClass
- * 
  * @param {string|string[]} cls - A class or array of classes that you want to add to the wrapped elements.
  * @return {jul}           - The jul that the method was called on.
  */

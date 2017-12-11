@@ -98,9 +98,6 @@ var makeElem = function (parent, elem, isSVG) {
 /**
  * This function will create HTML for you using {@link https://emmet.io/|Emmet} style syntax
  * 
- * @memberof jul
- * @alias jul.create
- * 
  * @param {string} str - The representation of the html you want to  create.
  * @param {boolean}     isSVG - A boolean determining whether you want to create an SVG heierarchy instead of a standard HTML heierarchy.
  * @return {DocumentFragment} - A DocumentFragment containing the created nodes.
