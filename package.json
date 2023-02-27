@@ -53,7 +53,7 @@
     "minify": "^3.0.1",
     "mocha-phantomjs": "latest",
     "mocha-phantomjs-istanbul": "latest",
-    "nyc": "^11.2.1",
+    "nyc": "^15.1.0",
     "onchange-mini": "latest",
     "rollup": "^0.49.3"
   }
